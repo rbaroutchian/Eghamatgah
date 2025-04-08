@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+	<!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>پیدا کردن اقامتگاه رویایی شما</h2>
+            <p>بهترین اقامتگاه‌ها و ویلاها را در سراسر ایران کشف کنید</p>
+            <div class="search-box">
+                <input type="text" placeholder="جستجوی مقصد...">
+                <input type="date" placeholder="تاریخ ورود">
+                <input type="date" placeholder="تاریخ خروج">
+                <button class="btn btn-primary">جستجو</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Properties -->
+    <section class="featured-properties">
+        <h2>اقامتگاه‌های برتر</h2>
+        <div class="property-grid">
+            <!-- Property Card 1 -->
+            <div class="property-card">
+                <img src="images/property1.jpg" alt="ویلای شمال">
+                <div class="property-info">
+                    <h3>ویلای شمال</h3>
+                    <p>شمال، نوشهر</p>
+                    <div class="property-details">
+                        <span><i class="fas fa-bed"></i> 3 خواب</span>
+                        <span><i class="fas fa-bath"></i> 2 حمام</span>
+                        <span><i class="fas fa-ruler-combined"></i> 200 متر</span>
+                    </div>
+                    <div class="property-price">
+                        <span>شبانه: 1,500,000 تومان</span>
+                    </div>
+                </div>
+            </div>
+            <!-- More property cards will be added here -->
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="feature">
+            <i class="fas fa-shield-alt"></i>
+            <h3>امنیت بالا</h3>
+            <p>اطمینان از امنیت کامل اقامتگاه‌ها</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-hand-holding-usd"></i>
+            <h3>قیمت مناسب</h3>
+            <p>بهترین قیمت‌ها با کیفیت عالی</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-headset"></i>
+            <h3>پشتیبانی 24/7</h3>
+            <p>پشتیبانی تمام وقت برای رفع مشکلات</p>
+        </div>
+    </section>
+
+{% endblock %}

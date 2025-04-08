@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load poll_extras %}
+{% load static %}
+{% block title %}
+
+{% endblock %}
+{% block content %}
+	    <!-- Property Details -->
+    <section class="property-details-page">
+        <div class="container">
+            <!-- Property Gallery -->
+            <div class="property-gallery">
+{#                <div class="main-image">#}
+{#                    <img src="{{eghamat.image.url}}" alt="ویلای شمال">#}
+{#                </div>#}
+                <div class="thumbnail-gallery">
+                    <img src="{{eghamat.image.url}}" alt="ویلای شمال">
+                    <img src="{{eghamat.image.url}}" alt="ویلای شمال">
+                    <img src="{{eghamat.image.url}}" alt="ویلای شمال">
+                    <img src="{{eghamat.image.url}}" alt="ویلای شمال">
+                </div>
+            </div>
+
+            <div class="property-content">
+                <!-- Property Info -->
+                <div class="property-main-info">
+                    <h1>{{ eghamat.title }}</h1>
+                    <p class="location"><i class="fas fa-map-marker-alt"></i>{{eghamat.shahr}}</p>
+                    <div class="property-features">
+                        <span><i class="fas fa-bed"></i>{{eghamat.tedad_otagh }} خواب</span>
+                        <span><i class="fas fa-ruler-combined"></i> {{ eghamat.metrazh }} متر</span>
+                        <span><i class="fas fa-users"></i> حداکثر {{ eghamat.zarfiat }} نفر</span>
+                    </div>
+                    <div class="property-description">
+                        <h3>توضیحات</h3>
+                        <p>{{ eghamat.description}}</p>
+                    </div>
+                    <div class="property-amenities">
+                        <h3>امکانات</h3>
+                        <ul>
+                            {% if eghamat.wifi %}
+                            	<li><i class="fas fa-wifi"></i> وای‌فای رایگان</li>
+                            {% endif %}
+                        {% if eghamat.parking %}
+                            <li><i class="fas fa-parking"></i> پارکینگ</li>
+                        {% endif %}
+                        {% if eghamat.pool %}
+                            <li><i class="fas fa-swimming-pool"></i> استخر</li>
+                        {% endif %}
+                        {% if eghamat.kitchen %}
+                            <li><i class="fas fa-utensils"></i> آشپزخانه مجهز</li>
+                        {% endif %}
+                        {% if eghamat.tv %}
+                            <li><i class="fas fa-tv"></i> تلویزیون</li>
+                        {% endif %}
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Booking Form -->
+                <div class="booking-form">
+                    <div class="price-box">
+                        <span class="price">{{ eghamat.gheymat_har_shab|three_digits_currency}} </span>
+                        <span class="price-label">شبانه</span>
+                    </div>
+                    <form class="booking-details">
+                        <div class="form-group">
+                            <label>تاریخ ورود</label>
+                            <input type="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>تاریخ خروج</label>
+                            <input type="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>تعداد نفرات</label>
+                            <select required>
+                                <option value="1">1 نفر</option>
+                                <option value="2">2 نفر</option>
+                                <option value="3">3 نفر</option>
+                                <option value="4">4 نفر</option>
+                                <option value="5">5 نفر</option>
+                                <option value="6">6 نفر</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">رزرو اقامتگاه</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Reviews Section -->
+            <div class="reviews-section">
+                <h2>نظرات کاربران</h2>
+                <div class="reviews">
+                    <div class="review">
+                        {% for comment in comments %}
+                        <div class="review-header">
+
+                            <img src="{{ comment.user.avatar.url }}" alt="کاربر">
+                            <div class="review-info">
+
+                                <h4>{{ comment.user.first_name}}</h4>
+                                <div class="rating">
+                                    {% if comment.star == "1" %}
+                                        <i class="fas fa-star text-warning"></i>
+                                    {% elif comment.star == "2" %}
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                    {% elif comment.star == "3" %}
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                    {% elif comment.star == "4" %}
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                    {% elif comment.star == "5" %}
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <p class="review-text">{{ comment.text}}</p>
+                        <span class="review-date">{{ comment.create_date}}</span>
+                        {% endfor %}
+                    </div>
+                    <!-- More reviews can be added here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+

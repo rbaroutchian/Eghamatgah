@@ -1,0 +1,164 @@
+{% extends 'base2.html' %}
+{% block page_title %}
+
+{% endblock %}
+{% block page_content %}
+	<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>پروفایل من</title>
+    <style>
+        body {
+            font-family: 'Vazir', sans-serif;
+            direction: rtl;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: block;
+            margin: 1rem 0 0.5rem;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.7rem;
+            border-radius: 0.5rem;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            margin-top: 1rem;
+            padding: 0.6rem 1.5rem;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 0.8rem;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+
+        .no-orders {
+            color: #888;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>پروفایل من</h2>
+    <!-- اطلاعات شخصی -->
+    <div class="section">
+        <h3>اطلاعات شخصی</h3>
+        <p><strong>نام:</strong> {{ current_user.first_name}}</p>
+        <p><strong>ایمیل:</strong> {{ current_user.email}}</p>
+        <p><strong>تاریخ عضویت:</strong> ۱۴۰۲/۰۱/۱۵</p>
+    </div>
+
+    <!-- فرم ویرایش اطلاعات -->
+    <div class="section">
+        <h3>ویرایش اطلاعات</h3>
+<form method="post">
+    {% csrf_token %}
+
+    <label for="id_first_name">نام</label>
+    <input type="text" name="first_name" id="id_first_name" value="{{ form.first_name.value }}" class="input">
+
+    <label for="id_last_name">نام خانوادگی</label>
+    <input type="text" name="last_name" id="id_last_name" value="{{ form.last_name.value }}" class="input">
+
+    <label for="id_email">ایمیل</label>
+    <input type="email" name="email" id="id_email" value="{{ form.email.value }}" class="input">
+
+    <button type="submit" class="btn">ذخیره تغییرات</button>
+{% if messages %}
+    <div style="text-align: center; padding: 1rem; background-color: #d4edda; color: #155724; border-radius: 0.5rem; margin-top:8rem; margin-bottom: 2rem;">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}
+</form>
+    </div>
+
+    <!-- لیست سفارشات -->
+    <div class="section">
+        <h3>سفارشات من</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>نام اقامتگاه</th>
+                    <th>آدرس</th>
+                    <th>تاریخ ورود</th>
+                    <th>تاریخ خروج</th>
+                    <th>مبلغ</th>
+                    <th>وضعیت</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for booking in bookings %}
+
+                <tr>
+                    <td>{{ booking.eghamat.title }}</td>
+                    <td>{{ booking.eghamat.address}}</td>
+                    <td>{{ booking.check_in}}</td>
+                    <td>{{ booking.check_out}}</td>
+                    <td>{{ booking.eghamat.gheymat_har_shab}}</td>
+                    <td>{{ booking.status}}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+        <!-- اگه سفارشی وجود نداشت -->
+        <!-- <p class="no-orders">شما هنوز سفارشی ثبت نکرده‌اید.</p> -->
+    </div>
+</div>
+
+</body>
+</html>
+
+{% endblock %}

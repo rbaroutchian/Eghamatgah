@@ -1,0 +1,155 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% load poll_extras %}
+
+{% block page_title %}{{ eghamat.title }}{% endblock %}
+
+{% block page_content %}
+<section class="property-details-page py-5">
+    <div class="container">
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- گالری تصاویر و ویدیو -->
+        <div class="row">
+{#            <div class="col-md-7">#}
+{#                <div class="thumbnail-gallery mb-3 d-flex flex-wrap gap-3">#}
+{#                    <div class="card" style="width: 30px;">#}
+{#                        <img src="{{ eghamat.image.url }}" class="img-fluid rounded" alt="تصویر اقامتگاه">#}
+{#                    </div>#}
+{#                    <div class="card" style="width: 30px;">#}
+{#                        <img src="{{ eghamat.image.url }}" class="img-fluid rounded" alt="تصویر اقامتگاه">#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#                {% if eghamat.video %}#}
+{#                    <div class="video-wrapper mb-3">#}
+{#                        <video controls class="w-100 rounded shadow">#}
+{#                            <source src="{{ eghamat.video.url }}" type="video/mp4">#}
+{#                            مرورگر شما از پخش این ویدیو پشتیبانی نمی‌کند.#}
+{#                        </video>#}
+{#                    </div>#}
+{#                {% endif %}#}
+{#            </div>#}
+
+            <!-- اطلاعات کلی اقامتگاه -->
+        <div class="col-md-5">
+                <h1 class="mb-3">{{ eghamat.title }}</h1>
+                <p class="text-muted"><i class="fas fa-map-marker-alt me-1"></i> {{ eghamat.shahr }}</p>
+                <ul class="list-unstyled mb-3">
+                    <li><i class="fas fa-bed me-2"></i>{{ eghamat.tedad_otagh }} خواب</li>
+                    <li><i class="fas fa-ruler-combined me-2"></i>{{ eghamat.metrazh }} متر</li>
+                    <li><i class="fas fa-users me-2"></i> حداکثر {{ eghamat.zarfiat }} نفر</li>
+                </ul>
+
+                <h5>توضیحات:</h5>
+                <p>{{ eghamat.description }}</p>
+
+                <h5>امکانات:</h5>
+                <ul class="list-unstyled">
+                    {% if eghamat.wifi %}<li><i class="fas fa-wifi me-2"></i> وای‌فای</li>{% endif %}
+                    {% if eghamat.parking %}<li><i class="fas fa-parking me-2"></i> پارکینگ</li>{% endif %}
+                    {% if eghamat.pool %}<li><i class="fas fa-swimming-pool me-2"></i> استخر</li>{% endif %}
+                    {% if eghamat.kitchen %}<li><i class="fas fa-utensils me-2"></i> آشپزخانه</li>{% endif %}
+                    {% if eghamat.tv %}<li><i class="fas fa-tv me-2"></i> تلویزیون</li>{% endif %}
+                </ul>
+
+                <div class="price-box mt-4 p-3 border rounded bg-light">
+                    <strong class="text-dark fs-5">قیمت شبانه:</strong>
+                    <span class="text-success fs-4">{{ eghamat.gheymat_har_shab|three_digits_currency }} تومان</span>
+                </div>
+
+                <!-- فرم رزرو -->
+                <form method="post" class="mt-3" id="booking-form" data-eghamat-id="{{ eghamat.pk }}">
+                    {% csrf_token %}
+                    <div class="card p-4">
+                        <h5>فرم رزرو</h5>
+                        {{ booking_form.as_p }}
+                        <button type="submit" class="btn btn-primary w-100">رزرو اقامتگاه</button>
+                        <p id="total-price" class="mt-2 text-muted">قیمت نهایی: ۰ تومان</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- نظرات -->
+        <hr class=  "my-5">
+        <div class="reviews-section">
+            <h3 class="mb-4">نظرات کاربران</h3>
+
+            {% if request.user.is_authenticated %}
+                <form method="post" action="">{% csrf_token %}
+                    {{ comment_form.as_p }}
+                    <button class="btn btn-success">ارسال نظر</button>
+                </form>
+            {% else %}
+                <p>برای ثبت نظر <a href="{% url 'login_page' %}">وارد شوید</a>.</p>
+            {% endif %}
+
+            <div class="mt-4">
+                {% for comment in comments %}
+                    <div class="border rounded p-3 mb-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <img src="{{ comment.user.avatar.url }}" class="rounded-circle me-2" width="40" height="40">
+                            <div>
+                                <strong>{{ comment.user.first_name }}</strong>
+                                <small class="text-muted d-block">{{ comment.create_date|date:"Y/m/d" }}</small>
+                            </div>
+                        </div>
+                        <p>{{ comment.text }}</p>
+
+                        <!-- ستاره‌ها -->
+                                <div class="rating">
+                                    {% if comment.star == "1" %}
+                                        <i class="fas fa-star text-warning"></i>
+                                    {% elif comment.star == "2" %}
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                    {% elif comment.star == "3" %}
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                    {% elif comment.star == "4" %}
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                    {% elif comment.star == "5" %}
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                    {% endif %}
+
+                                </div>
+
+                        <!-- ساب‌کامنت‌ها -->
+                        {% for reply in comment.parentcomment.all %}
+                            <div class="ps-3 mt-2 border-start">
+                                <strong>{{ reply.user.first_name }}:</strong>
+                                <p class="mb-1">{{ reply.text }}</p>
+                                <small class="text-muted">{{ reply.create_date|date:"Y/m/d" }}</small>
+                            </div>
+                        {% endfor %}
+
+                        {% if request.user.is_authenticated %}
+                            <form method="post" class="mt-2">{% csrf_token %}
+                                <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                                <textarea name="text" rows="2" class="form-control mb-1" placeholder="پاسخ شما..."></textarea>
+                                <button class="btn btn-outline-primary btn-sm">ارسال پاسخ</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+

@@ -1,0 +1,156 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% block page_title %}
+
+{% endblock %}
+{% block page_content %}
+	<!-- article detail section starts -->
+<section class="article-detail">
+    <div class="article-header">
+        <h1 class="article-title"></h1>
+        <div class="article-meta">
+            <span><i class="far fa-user"></i> {{ article.author}}</span>
+            <span><i class="far fa-calendar"></i> تاریخ انتشار:{{ article.created_date }}</span>
+            <span><i class="far fa-eye"></i> بازدیدها: 1,245</span>
+        </div>
+    </div>
+
+    <div class="article-image">
+        <img src="{{ article.image.url}}" alt="{{ article.title}}">
+    </div>
+
+    <div class="article-content">
+
+
+        <h2>{{ article.title }}</h2>
+        <p>استانبول در تمام طول سال میزبان گردشگران است، اما بهترین زمان برای بازدید از این شهر بهار (از اواسط آوریل تا اواخر ژوئن) و پاییز (از سپتامبر تا اواسط نوامبر) است. در این ماه‌ها هوا معتدل و مطبوع است و از شلوغی فصل تابستان نیز خبری نیست.</p>
+
+        <h2>جاذبه‌های گردشگری استانبول</h2>
+
+        <h3>1. مسجد ایاصوفیه</h3>
+        <p>این بنای تاریخی که زمانی کلیسا، سپس مسجد و اکنون موزه است، یکی از شگفت‌انگیزترین نمونه‌های معماری بیزانسی به شمار می‌رود. موزاییک‌های طلایی و گنبد عظیم آن نفس‌گیر هستند.</p>
+
+        <h3>2. کاخ توپکاپی</h3>
+        <p>این کاخ مجلل که زمانی محل اقامت سلاطین عثمانی بوده، اکنون به موزه تبدیل شده و می‌توانید از حرمسرا، آشپزخانه‌های سلطنتی و گنجینه‌های باورنکردنی آن دیدن کنید.</p>
+
+        <h3>3. بازار بزرگ استانبول</h3>
+        <p>یکی از بزرگترین و قدیمی‌ترین بازارهای سرپوشیده جهان با بیش از 4000 مغازه که همه چیز از فرش و صنایع دستی تا طلا و ادویه در آن یافت می‌شود.</p>
+
+        <h2>غذاهای محلی که باید امتحان کنید</h2>
+        <ul>
+            <li><strong>کباب ترکی:</strong> انواع مختلفی دارد که معروف‌ترین آنها دونر کباب و شیش کباب است.</li>
+            <li><strong>باقلوا:</strong> این شیرینی خوشمزه لایه‌ای از شیره، پسته و خمیر فیلا است.</li>
+            <li><strong>مزه:</strong> پیش‌غذاهای کوچکی که معمولاً با راکی (نوشیدنی سنتی ترکی) سرو می‌شوند.</li>
+            <li><strong>بورک:</strong> شیرینی‌های خوشمزه پر شده با پنیر یا گوشت.</li>
+        </ul>
+
+        <h2>نکات مهم برای سفر به استانبول</h2>
+        <ol>
+            <li>برای بازدید از جاذبه‌های اصلی مثل ایاصوفیه و کاخ توپکاپی، صبح زود بروید تا از شلوغی جمعیت در امان باشید.</li>
+            <li>حمل و نقل عمومی در استانبول بسیار کارآمد است. کارت استانبول کارت (Istanbulkart) بخرید که برای همه وسایل نقلیه عمومی قابل استفاده است.</li>
+            <li>در بازارها و مغازه‌ها چانه زدن را فراموش نکنید، این بخشی از فرهنگ خرید در ترکیه است.</li>
+            <li>آب لوله‌کشی استانبول قابل آشامیدن است اما بسیاری از مردم ترجیح می‌دهند آب معدنی بنوشند.</li>
+            <li>اگر قصد دارید از مساجد دیدن کنید، لباس مناسب (پوشش محافظه‌انه) به همراه داشته باشید.</li>
+        </ol>
+
+        <p>استانبول شهری است که هر بار می‌توانید جنبه‌ای جدید از آن را کشف کنید. از غذاهای خوشمزه گرفته تا تاریخ غنی و مردم مهمان‌نواز، همه چیز در این شهر شما را به بازگشت دوباره ترغیب خواهد کرد.</p>
+    </div>
+
+    <div class="article-tags">
+        <a href="#">#استانبول</a>
+        <a href="#">#ترکیه</a>
+        <a href="#">#سفر</a>
+        <a href="#">#گردشگری</a>
+        <a href="#">#اروپا</a>
+    </div>
+
+    <div class="article-navigation">
+        {% if previous_article %}
+            <a href="{% url 'article_detail' previous_article.id %}">
+                <i class="fas fa-arrow-right"></i> مقاله قبلی</a>
+        {% endif %}
+        <a href="{% url 'article_list' %}"><i class="fas fa-list"></i> بازگشت به لیست مقالات</a>
+        {% if next_article %}
+            <a href="{% url 'article_detail' next_article.id %}">مقاله بعدی <i class="fas fa-arrow-left"></i></a>
+        {% endif %}
+    </div>
+
+<div class="pt-2 mt-5">
+              <h2 class="h4">نظرات شما<span class="badge bg-secondary fs-sm text-body align-middle ms-2">{{ comments_count }}</span></h2>
+
+              <div id="comment_list">
+                    {% include 'article/include/article_comment.html' %}
+                 </div>
+
+    <!-- ارسال نظر form-->
+              <div class="card border-0 shadow mt-2 mb-4">
+                  {% if request.user.is_authenticated %}
+                <div class="card-body">
+                    <form class="w-100 needs-validation ms-3" method="post" novalidate>
+                        {% csrf_token %}
+                        <div class="mb-3">
+                        <textarea class="form-control" id="commentText" rows="4" placeholder="نظر بنویسید ..." required></textarea>
+                        <input type="hidden" id="parentId" value="">
+                            <div class="invalid-feedback">نظر بنویسید ...</div>
+                      </div>
+{#                    {% csrf_token %}#}
+{#                    {{ comment_form.as_p }}#}
+{#                        {% if request.user.is_authenticated %}#}
+
+{#                      <div class="mb-3">#}
+{##}
+{#                      </div>#}
+                      <button class="btn btn-primary btn-sm" type="button" onclick="sendArticleComment({{ article.id }})">ارسال نظر</button>
+
+
+                    </form>
+                  </div>
+                  {% else %}
+                  <div class="alert alert-warning">
+                      برای درج نظر حتما باید <a href="{% url 'login_page' %}">وارد</a> سایت شوید.
+                  </div>
+                  {% endif %}
+                </div>
+</div>
+
+    <div class="related-articles">
+        <h2>مقالات مرتبط</h2>
+        <div class="related-list">
+            <div class="related-item">
+                <div class="related-image">
+                    <img src="images/article-2.jpg" alt="سفر اقتصادی به دبی">
+                </div>
+                <div class="related-content">
+                    <h3>چگونه به دبی سفر اقتصادی داشته باشیم؟</h3>
+                    <a href="article-detail.html?id=2" class="read-more">ادامه مطلب</a>
+                </div>
+            </div>
+
+            <div class="related-item">
+                <div class="related-image">
+                    <img src="images/article-4.jpg" alt="مقاصد کمتر شناخته شده">
+                </div>
+                <div class="related-content">
+                    <h3>5 مقصد کمتر شناخته شده در اروپا</h3>
+                    <a href="article-detail.html?id=4" class="read-more">ادامه مطلب</a>
+                </div>
+            </div>
+
+            <div class="related-item">
+                <div class="related-image">
+                    <img src="images/article-5.jpg" alt="سفر با کودکان">
+                </div>
+                <div class="related-content">
+                    <h3>نکات طلایی برای سفر با کودکان</h3>
+                    <a href="article-detail.html?id=5" class="read-more">ادامه مطلب</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- article detail section ends -->
+{% endblock %}
+
+
+
+

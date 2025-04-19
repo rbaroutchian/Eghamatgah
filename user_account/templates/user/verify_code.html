@@ -1,0 +1,8 @@
+
+<form method="post" action="{% url 'verify_code_page' %}" class="needs-validation" novalidate>
+  {% csrf_token %}
+  <label>کد تایید پیامک‌شده را وارد کنید:</label>
+  <input type="text" name="code" id="code" maxlength="6" required>
+  <button type="submit">تایید</button>
+</form>
+

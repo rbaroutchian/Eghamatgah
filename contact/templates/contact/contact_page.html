@@ -1,0 +1,61 @@
+{% extends 'base2.html' %}
+
+{% block page_title %}
+ارتباط با ما
+{% endblock %}
+
+{% block page_content %}
+
+<div class="contact-form-wrapper card shadow p-4 mb-5">
+    <h4 class="mb-4">فرم تماس با ما</h4>
+
+    <form id="contact-form" class="needs-validation" action="{% url 'contact_page' %}" method="post">
+        {% csrf_token %}
+
+        <div class="row g-3">
+            <div class="col-sm-6">
+                <div class="form-group {% if form.Fullname.errors %}has-error{% endif %}">
+                    {{ form.Fullname.label_tag }}
+                    {{ form.Fullname }}
+                    {{ form.Fullname.errors }}
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group {% if form.Email.errors %}has-error{% endif %}">
+                    {{ form.Email.label_tag }}
+                    {{ form.Email }}
+                    {{ form.Email.errors }}
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group {% if form.Phone.errors %}has-error{% endif %}">
+                    {{ form.Phone.label_tag }}
+                    {{ form.Phone }}
+                    {{ form.Phone.errors }}
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group {% if form.Title.errors %}has-error{% endif %}">
+                    {{ form.Title.label_tag }}
+                    {{ form.Title }}
+                    {{ form.Title.errors }}
+                </div>
+            </div>
+
+            <div class="col-sm-12">
+                <div class="form-group {% if form.Message.errors %}has-error{% endif %}">
+                    {{ form.Message.label_tag }}
+                    {{ form.Message }}
+                    {{ form.Message.errors }}
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-4">ارسال</button>
+    </form>
+</div>
+
+{% endblock %}

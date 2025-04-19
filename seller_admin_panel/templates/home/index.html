@@ -1,0 +1,100 @@
+{% extends 'base/seller_dashboard.html' %}
+{% block admin_title %}
+	پنل مدیریت -داشبورد
+{% endblock admin_title %}
+
+{% block admin_content %}
+        <div class="dashboard-header">
+            <h2>داشبورد میزبان</h2>
+            <div>
+                <span id="current-date">امروز: ۱۴۰۲/۰۵/۱۵</span>
+            </div>
+        </div>
+
+        <!-- بخش داشبورد -->
+        <div>
+            <!-- کارت‌های آماری -->
+            <div class="dashboard-cards">
+                <div class="card">
+                    <h3>رزروهای فعال</h3>
+                    <div class="number">۱۲</div>
+                    <p>در ماه جاری</p>
+                </div>
+
+                <div class="card">
+                    <h3>درآمد ماه</h3>
+                    <div class="number">۴,۵۰۰,۰۰۰ تومان</div>
+                    <p>۳۰% افزایش نسبت به ماه قبل</p>
+                </div>
+
+                <div class="card">
+                    <h3>میانگین امتیاز</h3>
+                    <div class="number">۴.۸ <i class="fas fa-star" style="color: gold;"></i></div>
+                    <p>از ۱۵ نظر</p>
+                </div>
+
+                <div class="card">
+                    <h3>اقامتگاه‌ها</h3>
+                    <div class="number">۳</div>
+                    <p>فعال</p>
+                </div>
+            </div>
+
+            <!-- رزروهای اخیر -->
+            <div class="recent-bookings">
+                <h3>رزروهای اخیر</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>کد رزرو</th>
+                            <th>اقامتگاه</th>
+                            <th>مهمان</th>
+                            <th>تاریخ</th>
+                            <th>مبلغ</th>
+                            <th>وضعیت</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#RES-2023-125</td>
+                            <td>ویلای استخردار شمال</td>
+                            <td>محمد رضایی</td>
+                            <td>۱۴۰۲/۰۵/۲۰ - ۱۴۰۲/۰۵/۲۳</td>
+                            <td>۱,۲۰۰,۰۰۰ تومان</td>
+                            <td><span class="status-confirmed">تأیید شده</span></td>
+                            <td><a href="#" class="btn btn-sm">مشاهده</a></td>
+                        </tr>
+                        <tr>
+                            <td>#RES-2023-124</td>
+                            <td>آپارتمان مبله تهران</td>
+                            <td>فاطمه محمدی</td>
+                            <td>۱۴۰۲/۰۵/۱۸ - ۱۴۰۲/۰۵/۱۹</td>
+                            <td>۶۵۰,۰۰۰ تومان</td>
+                            <td><span class="status-confirmed">تأیید شده</span></td>
+                            <td><a href="#" class="btn btn-sm">مشاهده</a></td>
+                        </tr>
+                        <tr>
+                            <td>#RES-2023-123</td>
+                            <td>کلبه جنگلی گیلان</td>
+                            <td>علی حسینی</td>
+                            <td>۱۴۰۲/۰۵/۲۵ - ۱۴۰۲/۰۵/۲۷</td>
+                            <td>۹۸۰,۰۰۰ تومان</td>
+                            <td><span class="status-pending">در انتظار تأیید</span></td>
+                            <td><a href="#" class="btn btn-sm">مشاهده</a></td>
+                        </tr>
+                        <tr>
+                            <td>#RES-2023-122</td>
+                            <td>ویلای استخردار شمال</td>
+                            <td>زهرا اکبری</td>
+                            <td>۱۴۰۲/۰۵/۱۰ - ۱۴۰۲/۰۵/۱۲</td>
+                            <td>۱,۱۰۰,۰۰۰ تومان</td>
+                            <td><span class="status-canceled">لغو شده</span></td>
+                            <td><a href="#" class="btn btn-sm">مشاهده</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+{% endblock admin_content %}

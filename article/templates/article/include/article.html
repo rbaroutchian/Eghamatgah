@@ -1,0 +1,15 @@
+{% load static %}
+<div class="article-card">
+            <div class="article-image">
+                <img src="{{ article.image.url }}" alt="راهنمای سفر به استانبول">
+            </div>
+            <div class="article-content">
+                <h3>{{ article.title}}</h3>
+                <div class="article-meta">
+                    <span><i class="far fa-calendar"></i>{{article.created_date}}</span>
+                    <span><i class="far fa-eye"></i> 1,245 بازدید</span>
+                </div>
+                <p class="article-excerpt">{{ article.short_description}}</p>
+                <a href="{% url 'article_detail' article.id %}" class="read-more">ادامه مطلب</a>
+            </div>
+        </div>

@@ -1,0 +1,71 @@
+/* گالری تصاویر */
+.thumbnail-gallery img {
+    object-fit: cover;
+    height: 200px;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+.thumbnail-gallery img:hover {
+    transform: scale(1.02);
+}
+
+/* ویدیو */
+.video-wrapper video {
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* اطلاعات اقامتگاه */
+.property-details-page h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+.property-details-page ul {
+    padding-left: 0;
+    list-style: none;
+}
+.property-details-page ul li {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+/* قیمت */
+.price-box {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    font-size: 1.1rem;
+}
+
+/* فرم رزرو */
+#booking-form input,
+#booking-form select {
+    margin-bottom: 0.5rem;
+}
+#total-price {
+    font-weight: bold;
+    color: #28a745;
+}
+
+/* نظرات */
+.reviews-section h3 {
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+.reviews-section .border {
+    background-color: #fff;
+}
+.reviews-section textarea {
+    resize: vertical;
+}
+
+/* پاسخ به نظر */
+.reviews-section .border-start {
+    border-color: #ddd !important;
+    padding-left: 1rem;
+}
+
+/* ستاره‌ها */
+.text-warning .fa-star {
+    color: #ffc107;
+}

@@ -1,0 +1,156 @@
+{% extends 'base/seller_dashboard.html' %}
+
+{% block admin_title %}
+	درج اقامتگاه
+{% endblock %}
+
+{% block admin_content %}
+            <div class="dashboard-header">
+            <h2>داشبورد میزبان</h2>
+            <div>
+                <span id="current-date">امروز: ۱۴۰۲/۰۵/۱۵</span>
+            </div>
+        </div>
+    <!-- بخش افزودن اقامتگاه جدید -->
+<div>
+    <div class="dashboard-header">
+        <h2>افزودن اقامتگاه جدید</h2>
+        <a href="{% url 'eghamat_list_dashboard' %}" class="btn" id="back-to-properties"><i class="fas fa-arrow-right"></i> بازگشت به لیست اقامتگاه‌ها</a>
+    </div>
+
+    <div class="card">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <h3>اطلاعات اصلی</h3>
+                    <div class="form-group">
+                        <label for="id_title">عنوان اقامتگاه</label>
+                        <input type="text" name="title" id="id_title" placeholder="مثال: ویلای استخردار شمال" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_Ecategory">دسته بندی اقامتگاه</label>
+                        <select name="Ecategory" id="id_Ecategory" >
+                            {% for category in form.Ecategory.field.queryset %}
+                                <option value="{{ category.id }}">{{ category.title }}</option>
+
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_seller">فروشنده</label>
+                        <select name="seller" id="id_seller" >
+                            {% for seller in form.seller.field.queryset %}
+                                <option value="{{ seller.id }}">{{ seller.company_name }}</option>
+
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_type">نوع اقامتگاه</label>
+                        <select name="eghamat_type" id="id_type" >
+                            {% for value, label in form.eghamat_type.field.choices %}
+                                 <option value="{{ value }}">{{ label }}</option>
+
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_ostan">استان</label>
+                        <input type="text" name="ostan" id="id_ostan" placeholder="مثال: مازندران" required>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_shahr">شهر</label>
+                        <input type="text" name="shahr" id="id_shahr" placeholder="مثال: نور" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_address">آدرس دقیق</label>
+                        <textarea rows="3" name="address" id="id_address" placeholder="آدرس کامل برای مسیریابی مهمانان" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_description">توضیحات</label>
+                        <textarea rows="5" name="description" id="id_description" placeholder="توضیحات کامل درباره اقامتگاه و امکانات آن"></textarea>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>جزئیات اقامتگاه</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label for="id_tedad_otagh">تعداد خواب</label>
+                            <input type="number" name="tedad_otagh" id="id_tedad_otagh"required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="id_zarfiat">ظرفیت (نفر)</label>
+                            <input type="number" name="zarfiat" id="id_zarfiat"required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_time_voroud">تایم ورود</label>
+                        <input type="time" name="time_voroud" id="id_time_voroud" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_time_khorouj">تایم خروج</label>
+                        <input type="time" name="time_khorouj" id="id_time_khorouj" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_gheymat_har_shab">قیمت هر شب (تومان)</label>
+                        <input type="number" name="gheymat_har_shab" id="id_gheymat_har_shab" placeholder="مثال: 1000000" required>
+                    </div>
+
+                    <h3 style="margin-top: 20px;">امکانات</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <label class="checkbox-label">
+                            {{ form.parking }} پارکینگ
+                        </label>
+                        <label class="checkbox-label">
+                            {{form.pool}} استخر
+                        </label>
+                        <label class="checkbox-label">
+                            {{form.wifi}} اینترنت WiFi
+                        </label>
+                        <label class="checkbox-label">
+                            {{ form.kitchen }} آشپزخانه
+                        </label>
+                        <label class="checkbox-label">
+                            {{form.tv}} تلویزیون
+                        </label>
+                    </div>
+
+                    <h3 style="margin-top: 20px;">تصاویر اقامتگاه</h3>
+                    <div class="image-upload">
+                        <label for="id_image" class="upload-label">
+                        <span>تصاویر را اینجا رها کنید یا کلیک کنید</span>
+                            {% if form.instance.image %}
+                            <i class="fas fa-cloud-upload-alt"></i>
+
+                            <img src="{{ form.instance.image.url }}" alt="تصویر مقاله" class="img-thumbnail" style="max-width: 200px;">
+                        </label>
+                        {% endif %}
+                        <input type="file" name="image" id="id_image">
+
+                        <div class="preview-container" id="image-preview"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; text-align: left;">
+                <button type="submit" class="btn" style="padding: 10px 30px;">
+                    <i class="fas fa-save"></i> ذخیره اقامتگاه
+                </button>
+                <button type="reset" class="btn" style="background: #999; padding: 10px 30px;">
+                    <i class="fas fa-times"></i> انصراف
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

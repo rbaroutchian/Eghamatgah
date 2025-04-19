@@ -1,0 +1,94 @@
+{% load static %}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fa.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jdate-flatpickr@1.0.7/dist/jdate-flatpickr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- داده‌های تاریخ‌ها از ویو -->
+{{ available_dates|json_script:"availableDates" }}
+{{ reserved_dates|json_script:"reservedDates" }}
+
+<!-- Flatpickr -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fa.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const availableDates = JSON.parse(document.getElementById("availableDates").textContent);
+    const reservedDates  = JSON.parse(document.getElementById("reservedDates").textContent);
+
+    function toYMD(date) {
+      return date.toISOString().split('T')[0];
+    }
+
+    // initialize flatpickr on the range input
+    const fp = flatpickr("#datePicker", {
+      mode: "range",
+      locale: "fa",
+      dateFormat: "Y-m-d",
+      disable: reservedDates,     // غیرفعال کردن تاریخ‌های رزرو شده
+      enable: availableDates.map(d => ({ from: d, to: d })), // فقط تاریخ‌های مجاز
+      onChange: function(selectedDates) {
+        if (selectedDates.length === 2) {
+          // اگر بخواهید دو فیلد hidden برای ارسال check_in/check_out داشته باشید:
+          const [start, end] = selectedDates;
+          const inField  = document.createElement('input');
+          const outField = document.createElement('input');
+          inField.type  = 'hidden'; inField.name  = 'check_in';  inField.value  = toYMD(start);
+          outField.type = 'hidden'; outField.name = 'check_out'; outField.value = toYMD(end);
+          const form = document.getElementById('booking-form');
+          // پاک‌شدن hiddenهای قبلی
+          form.querySelectorAll('input[name="check_in"], input[name="check_out"]').forEach(el => el.remove());
+          form.append(inField, outField);
+        }
+      }
+    });
+});
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+<script src="{% static 'js/calendar.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+
+<script>
+    // باز کردن فرم پاسخ مربوط به کامنت
+    $(document).on('click', '.reply-btn', function (e) {
+        e.preventDefault();
+        const commentId = $(this).data('comment-id');
+        $('.reply-form').slideUp(); // بستن همه فرم‌ها
+        $('#reply-form-' + commentId).slideDown(); // باز کردن فرم مورد نظر
+    });
+
+    // ارسال پاسخ به صورت Ajax
+    $(document).on('click', '.submit-reply', function () {
+        const form = $(this).closest('.reply-form-inner');
+        const commentText = form.find('.reply-textarea').val();
+        const parentId = form.find('.parent-id-input').val();
+        const articleId = $('#article-id').val();
+
+        if (!commentText.trim()) {
+            alert("متن پاسخ نمی‌تواند خالی باشد.");
+            return;
+        }
+
+        $.post('/article/add-article-comment/', {
+            articleComment: commentText,
+            articleID: articleId,
+            parentId: parentId,
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+        }).then(res => {
+            $('#comment_list').html(res); // رفرش کامنت‌ها
+            $('.reply-form').slideUp(); // بستن فرم‌ها بعد از ارسال
+        }).fail(function (err) {
+            console.error("Error:", err);
+            alert("مشکلی پیش آمد. لطفاً دوباره تلاش کنید.");
+        });
+    });
+
+    // دکمه انصراف
+    $(document).on('click', '.cancel-reply', function () {
+        $(this).closest('.reply-form').slideUp();
+    });
+</script>

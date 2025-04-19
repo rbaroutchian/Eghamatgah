@@ -1,0 +1,229 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% load poll_extras %}
+
+{% block page_title %}{{ eghamat.title }}{% endblock %}
+
+{% block page_content %}
+<section class="accommodation-details">
+    <div class="details-container" >
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <div class="main-image">
+            <img src="{{ eghamat.image.url}}" alt="اقامتگاه ویلا ساحلی">
+        </div>
+        <div class="content">
+            <h1>{{ eghamat.title}}</h1>
+            <div class="location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>{{ eghamat.address}}</span>
+            </div>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>{{comments_count}} نظر </span>
+            </div>
+            <div class="price">
+                شبی {{ eghamat.gheymat_har_shab|three_digits_currency }}
+                <span>۱,۵۰۰,۰۰۰ تومان</span>
+            </div>
+            <div class="description">
+                <p>{{ eghamat.description }}</p>
+            </div>
+            <a href="#" class="btn">رزرو سریع</a>
+        </div>
+
+
+<div id="calendar">
+<div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      رزرو اقامتگاه
+    </div>
+    <div class="card-body">
+<form id="booking-form" method="post">
+  {% csrf_token %}
+  <div style="max-width:400px;margin:auto;">
+    <label for="datePicker">انتخاب تاریخ ورود و خروج:</label>
+    <input
+      type="text"
+      id="datePicker"
+      name="date_range"
+      placeholder="مثال: 2025-05-10 to 2025-05-15"
+      readonly
+      style="width:100%;padding:8px;margin-top:4px;"
+    />
+
+    <label for="persons" style="margin-top:12px;display:block;">تعداد نفرات:</label>
+    <input
+      type="number"
+      id="persons"
+      name="persons"
+      min="1"
+      required
+      style="width:100%;padding:8px;margin-top:4px;"
+    />
+
+    <button
+      type="submit"
+      style="width:100%;padding:10px;margin-top:16px;background:#28a745;color:#fff;border:none;border-radius:4px;"
+    >
+      رزرو
+    </button>
+  </div>
+</form>
+    </div>
+  </div>
+
+</div>
+
+</div>
+
+
+
+
+    <div class="amenities">
+        <h2>امکانات اقامتگاه</h2>
+        <div class="amenities-grid">
+            {% if eghamat.wifi %}
+                <div class="amenity-item">
+
+                    <i class="fas fa-wifi"></i>
+                    <span>اینترنت پرسرعت رایگان</span>
+            {% endif %}
+                </div>
+            {% if eghamat.pool %}
+            <div class="amenity-item">
+                <i class="fas fa-swimming-pool"></i>
+                <span>استخر خصوصی</span>
+            </div>
+            {% endif %}
+            {% if eghamat.parking %}
+            <div class="amenity-item">
+                <i class="fas fa-parking"></i>
+                <span>پارکینگ اختصاصی</span>
+            </div>
+            {% endif %}
+            {% if eghamat.kitchen %}
+            <div class="amenity-item">
+                <i class="fas fa-utensils"></i>
+                <span>آشپزخانه مجهز</span>
+            </div>
+            {% endif %}
+            {% if eghamat.tv %}
+            <div class="amenity-item">
+                <i class="fas fa-tv"></i>
+                <span>تلویزیون LED</span>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <div class="gallery">
+        <h2>گالری تصاویر</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="{{ eghamat.image2.url}}" alt="نمای بیرونی ویلا">
+            </div>
+            <div class="gallery-item">
+                <img src="{{ eghamat.image2.url}}" alt="اتاق خواب اصلی">
+            </div>
+            <div class="gallery-item">
+                <img src="{{ eghamat.image2.url}}" alt="استخر ویلا">
+            </div>
+            <div class="gallery-item">
+                <img src="{{ eghamat.image2.url}}" alt="آشپزخانه">
+            </div>
+            <div class="gallery-item">
+                <img src="{{ eghamat.image2.url}}" alt="چشم انداز ساحل">
+            </div>
+            <div class="gallery-item">
+                <img src="{{ eghamat.image2.url}}" alt="سالن پذیرایی">
+            </div>
+        </div>
+    </div>
+
+ <hr class="my-5">
+        <div class="reviews-section">
+            <h3 class="mb-4">نظرات کاربران</h3>
+
+            {% if request.user.is_authenticated %}
+                <form method="post" action="">{% csrf_token %}
+                    {{ comment_form.as_p }}
+                    <button class="btn btn-success">ارسال نظر</button>
+                </form>
+            {% else %}
+                <p>برای ثبت نظر <a href="{% url 'login_page' %}">وارد شوید</a>.</p>
+            {% endif %}
+
+            <div class="mt-4">
+                {% for comment in comments %}
+                    <div class="border rounded p-3 mb-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <img src="{{ comment.user.avatar.url }}" class="rounded-circle me-2" width="40" height="40">
+                            <div>
+                                <strong>{{ comment.user.first_name }}</strong>
+                                <small class="text-muted d-block">{{ comment.create_date|date:"Y/m/d" }}</small>
+                            </div>
+                        </div>
+                        <p>{{ comment.text }}</p>
+
+                        <!-- ستاره‌ها -->
+                                <div class="rating">
+                                    {% if comment.star == "1" %}
+                                        <i class="fas fa-star text-warning"></i>
+                                    {% elif comment.star == "2" %}
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                    {% elif comment.star == "3" %}
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                    {% elif comment.star == "4" %}
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                    {% elif comment.star == "5" %}
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                    {% endif %}
+
+                                </div>
+
+                        <!-- ساب‌کامنت‌ها -->
+                        {% for reply in comment.parentcomment.all %}
+                            <div class="ps-3 mt-2 border-start">
+                                <strong>{{ reply.user.first_name }}:</strong>
+                                <p class="mb-1">{{ reply.text }}</p>
+                                <small class="text-muted">{{ reply.create_date|date:"Y/m/d" }}</small>
+                            </div>
+                        {% endfor %}
+
+                        {% if request.user.is_authenticated %}
+                            <form method="post" class="mt-2">{% csrf_token %}
+                                <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                                <textarea name="text" rows="2" class="form-control mb-1" placeholder="پاسخ شما..."></textarea>
+                                <button class="btn btn-outline-primary btn-sm">ارسال پاسخ</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+
+
+
+</section>
+{% endblock %}
+

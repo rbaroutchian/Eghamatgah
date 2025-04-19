@@ -1,0 +1,47 @@
+{% load static %}
+
+<!-- Hidden input برای Article ID -->
+<input type="hidden" id="article-id" value="{{ article.id }}">
+
+<!-- لیست کامنت‌ها -->
+<div id="comment_list">
+    {% for comment in comments %}
+    <div class="d-flex align-items-start py-4 border-bottom" id="single_comment_box_{{ comment.id }}">
+        <img class="rounded-circle" src="{% static 'images/contact-img.svg' %}" width="50" alt="{{ comment.user.username }}">
+        <div class="ps-3 w-100">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6 class="fs-md mb-0">{{ comment.user.username }}</h6>
+                <a class="nav-link-style fs-sm fw-medium reply-btn" href="#" data-comment-id="{{ comment.id }}">
+                    <i class="ci-reply me-2"></i>پاسخ
+                </a>
+            </div>
+            <p class="fs-md mb-1">{{ comment.text }}</p>
+            <span class="fs-ms text-muted"><i class="ci-time align-middle me-2"></i>{{ comment.create_date }}</span>
+
+            <!-- پاسخ‌ها -->
+            {% for sub_comment in comment.articlecomment_set.all %}
+            <div class="d-flex align-items-start border-top pt-4 mt-4" id="single_comment_box_{{ sub_comment.id }}">
+                <img class="rounded-circle" src="{% static 'images/icons8-cart-24.png' %}" width="50" alt="{{ sub_comment.user.username }}">
+                <div class="ps-3 w-100">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h6 class="fs-md mb-0">{{ sub_comment.user.username }}</h6>
+                    </div>
+                    <p class="fs-md mb-1">{{ sub_comment.text }}</p>
+                    <span class="fs-ms text-muted"><i class="ci-time align-middle me-2"></i>{{ sub_comment.create_date }}</span>
+                </div>
+            </div>
+            {% endfor %}
+
+            <!-- فرم پاسخ مخفی -->
+            <div class="reply-form mt-3" id="reply-form-{{ comment.id }}" style="display: none;">
+                <form class="reply-form-inner">
+                    <textarea class="form-control mb-2 reply-textarea" rows="3" placeholder="پاسخ خود را بنویسید..."></textarea>
+                    <input type="hidden" class="parent-id-input" value="{{ comment.id }}">
+                    <button type="button" class="btn btn-primary btn-sm submit-reply">ارسال پاسخ</button>
+                    <button type="button" class="btn btn-secondary btn-sm cancel-reply">انصراف</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -41,7 +43,12 @@ INSTALLED_APPS = [
     'user_account',
     'home',
     'eghamatgah',
-    'polls'
+    'polls',
+    'seller_admin_panel',
+    'django_render_partial',
+    'booking',
+    'article',
+    'contact',
 ]
 
 MIDDLEWARE = [
@@ -82,7 +89,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
+    'OPTIONS': {
+                'charset': 'utf8mb4',
+            },
 }
 
 
@@ -113,6 +123,7 @@ LANGUAGE_CODE = 'fa-ir'
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
+USE_L10N = True
 
 USE_TZ = True
 
@@ -134,3 +145,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'user_account.User'
+
+APARAT_API_KEY = 'zw3d61rma59br5easbyjw6i3ce68bya5'
+
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+DEFAULT_CHARSET = 'utf-8'

@@ -24,20 +24,17 @@
             <ul class="nav-links">
                 <li><a href="{% url 'home' %}">خانه</a></li>
                 <li><a href="{% url 'eghamat_list' %}">اقامتگاه‌ها</a></li>
-                {% if request.user.is_authenticated and request.user.user_type == 'seller' %}
+                {% if request.user.is_authenticated %}
 
-                    <li><a href="#">ثبت اقامتگاه</a></li>
+                    <li><a href="{% url 'admin_home' %}">داشبورد مدیریتی</a></li>
                 {% endif %}
-                {% if request.user.is_authenticated and request.user.user_type == 'seller' %}
-
-                    <li><a href="#">پروفایل فروشندگان</a></li>
-                {% endif %}
+                
                 <li><a href="#">تماس با ما</a></li>
             </ul>
             <div class="auth-buttons">
-                <a href="#" class="btn btn-outline">ورود</a>
+                <a href="{% url 'login_page' %}" class="btn btn-outline">ورود</a>
                 <a href="#" class="btn btn-primary">ثبت‌نام</a>
-                <a href="#" class="btn btn-primary">خروج</a>
+                <a href="{% url 'logout_page' %}" class="btn btn-primary">خروج</a>
             </div>
         </nav>
     </header>
@@ -73,5 +70,8 @@
     </footer>
 
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+
+
 </body>
 </html>

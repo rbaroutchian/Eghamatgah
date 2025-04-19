@@ -1,4 +1,7 @@
 from django.contrib import admin
-from .models import Seller
+from . import models
 # Register your models here.
-admin.site.register(Seller)
+class SellerAdmin(admin.ModelAdmin):
+    list_display = ['company_name', 'is_active']
+    list_editable = ['is_active']
+admin.site.register(models.Seller, SellerAdmin)

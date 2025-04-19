@@ -1,0 +1,52 @@
+{% extends 'base/seller_dashboard.html' %}
+{% load static %}
+{% load poll_extras %}
+{% block admin_title %}
+	مدیریت اقامتگاه ها
+{% endblock %}
+
+{% block admin_content %}
+        <div class="dashboard-header">
+            <h2>داشبورد میزبان</h2>
+            <div>
+                <span id="current-date">امروز: ۱۴۰۲/۰۵/۱۵</span>
+            </div>
+        </div>
+
+     <!-- بخش اقامتگاه‌ها -->
+        <div>
+            <div class="dashboard-header">
+                <h2>مدیریت اقامتگاه‌ها</h2>
+                <a href="{% url 'add_eghamat' %}" class="btn"><i class="fas fa-plus"></i> افزودن اقامتگاه جدید</a>
+            </div>
+
+            <div class="property-list">
+                {% for eghamat in object_list %}
+                <div class="card">
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <img src="{{ eghamat.image.url }}" alt="{{ eghamat.title}}" style="width: 150px; height: 100px; border-radius: 5px; object-fit: cover;">
+                        <div>
+                            <h3>{{ eghamat.title}}</h3>
+                            <p>{{ eghamat.address}}</p>
+                            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                <span><i class="fas fa-bed"></i> {{eghamat.tedad_otagh}} خوابه</span>
+                                <span><i class="fas fa-user-friends"></i> حداکثر {{eghamat.zarfiat}} نفر</span>
+                                <span><i class="fas fa-star" style="color: gold;"></i> ۴.۹ ({{eghamat.comment_count}} نظر)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <span style="font-weight: bold; font-size: 18px;">{{eghamat.gheymat_har_shab|three_digits_currency}}</span> <span style="color: #777;">برای هر شب</span>
+                        </div>
+                        <div>
+                            <a href="{% url 'update_eghamat' pk=eghamat.id %}" class="btn btn-sm"><i class="fas fa-edit"></i> ویرایش</a>
+                            <a href="#" class="btn btn-sm" style="background: #f44336;"><i class="fas fa-trash"></i> حذف</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+{% endblock %}

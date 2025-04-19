@@ -1,0 +1,122 @@
+{% extends 'base/seller_dashboard.html' %}
+
+{% block admin_title %}
+	ویرایش اقامتگاه
+{% endblock %}
+
+{% block admin_content %}
+                <div class="dashboard-header">
+            <h2>داشبورد میزبان</h2>
+            <div>
+                <span id="current-date">امروز: ۱۴۰۲/۰۵/۱۵</span>
+            </div>
+        </div>
+
+
+
+<div class="dashboard-header">
+    <h2>ویرایش اقامتگاه</h2>
+    <div>
+{#        <a href="{% url 'update_eghamat' object.id %}" class="btn" style="background: #999;">#}
+                <a href="{% url 'eghamat_list_dashboard' %}" class="btn"><i class="fas"></i> انصراف</a>
+        </a>
+    </div>
+</div>
+
+<div class="card">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+            <div>
+                <h3>اطلاعات اصلی</h3>
+                <div class="form-group">
+                    <label>عنوان اقامتگاه</label>
+                    {{ form.title }}
+                </div>
+
+                <div class="form-group">
+                    <label>استان</label>
+                    {{ form.ostan }}
+                </div>
+
+                <div class="form-group">
+                    <label>شهر</label>
+                    {{ form.shahr }}
+                </div>
+
+                <div class="form-group">
+                    <label>آدرس دقیق</label>
+                    {{ form.address }}
+                </div>
+
+                <div class="form-group">
+                    <label>توضیحات</label>
+                    {{ form.description }}
+                </div>
+            </div>
+
+            <div>
+                <h3>جزئیات اقامتگاه</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="form-group">
+                        <label>تعداد خواب</label>
+                        {{ form.tedad_otagh }}
+                    </div>
+
+                    <div class="form-group">
+                        <label>ظرفیت (نفر)</label>
+                        {{ form.zarfiat }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>قیمت هر شب (تومان)</label>
+                    {{ form.gheymat_har_shab }}
+                </div>
+
+{#                <div class="form-group">#}
+{#                    <label>قوانین</label>#}
+{#                    {{ form.rules }}#}
+{#                </div>#}
+
+{#                <div class="form-group">#}
+{#                    <h3>امکانات</h3>#}
+{#                    <div class="amenities-checkboxes">#}
+{#                        {{ form.amenities }}#}
+{#                    </div>#}
+{#                </div>#}
+            </div>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <h3>تصاویر اقامتگاه</h3>
+            <div class="image-upload-container">
+                {% for image in object.images.all %}
+                <div class="image-preview">
+                    <img src="{{ image.image.url }}" alt="{{ object.title }}">
+                    <a href="#" class="delete-image">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="form-group" style="margin-top: 20px;">
+                <label>افزودن تصاویر جدید</label>
+                <input type="file" name="images" multiple accept="image/*">
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; text-align: left;">
+            <button type="submit" class="btn">
+                <i class="fas fa-save"></i> ذخیره تغییرات
+            </button>
+            <a href="#" class="btn" style="background: #999;">
+                <i class="fas fa-times"></i> انصراف
+            </a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

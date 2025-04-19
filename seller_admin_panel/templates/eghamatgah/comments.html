@@ -1,0 +1,53 @@
+{% extends 'base/seller_dashboard.html' %}
+
+{% block admin_title %}
+	مدیریت اقامتگاه ها
+{% endblock %}
+
+{% block admin_content %}
+
+    <!-- بخش نظرات -->
+        <div class="content-section" id="reviews-section">
+            <div class="dashboard-header">
+                <h2>نظرات مهمانان</h2>
+            </div>
+
+            <div class="card">
+                <div style="display: flex; gap: 20px; padding: 15px 0; border-bottom: 1px solid #eee;">
+                    <img src="images/user1.jpg" alt="علی احمدی" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+                    <div style="flex: 1;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <h4 style="margin: 0;">علی احمدی</h4>
+                            <div>
+                                <i class="fas fa-star" style="color: gold;"></i>
+                                <i class="fas fa-star" style="color: gold;"></i>
+                                <i class="fas fa-star" style="color: gold;"></i>
+                                <i class="fas fa-star" style="color: gold;"></i>
+                                <i class="fas fa-star" style="color: gold;"></i>
+                            </div>
+                        </div>
+                        <p style="margin: 5px 0 0; color: #555;">اقامتگاه بسیار تمیز و با امکانات کامل بود. میزبان بسیار مهمان نواز و پاسخگو بودند. حتماً دوباره رزرو خواهم کرد.</p>
+                        <p style="margin: 5px 0 0; font-size: 13px; color: #777;">ویلای استخردار شمال - اقامت در تیر ۱۴۰۲</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 20px; padding: 15px 0; border-bottom: 1px solid #eee;">
+                    <img src="images/user2.jpg" alt="فاطمه زاهدی" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+                    <div style="flex: 1;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <h4 style="margin: 0;">فاطمه زاهدی</h4>
+                            <div>
+                                <i class="fas fa-star" style="color: gold;"></i>
+                                <i class="fas fa-star" style="color: gold;"></i>
+                                <i class="fas fa-star" style="color: gold;"></i>
+                                <i class="fas fa-star" style="color: gold;"></i>
+                                <i class="far fa-star" style="color: gold;"></i>
+                            </div>
+                        </div>
+                        <p style="margin: 5px 0 0; color: #555;">موقعیت جغرافیایی خوبی داشت ولی پارکینگ کمی دور بود. به طور کلی راضی بودیم.</p>
+                        <p style="margin: 5px 0 0; font-size: 13px; color: #777;">آپارتمان مبله تهران - اقامت در خرداد ۱۴۰۲</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

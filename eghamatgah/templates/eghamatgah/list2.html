@@ -1,0 +1,50 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% block page_title %}
+لیست اقامتگاه ها
+{% endblock %}
+{% block page_content %}
+<!-- packages section starts  -->
+
+<section class="packages" id="packages" >
+
+    <h1 class="heading" >
+        <span>p</span>
+        <span>a</span>
+        <span>c</span>
+        <span>k</span>
+        <span>a</span>
+        <span>g</span>
+        <span>e</span>
+        <span>s</span>
+    </h1>
+
+    <div class="box-container">
+        {% for eghamat in eghamat_list %}
+        	<div class="box">
+            <img src="{{ eghamat.image.url }}" alt="">
+            <div class="content">
+                <h3> <i class="fas fa-map-marker-alt"></i> {{ eghamat.title }} </h3>
+                <p>{{ eghamat.description}}</p>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                </div>
+                <div class="price"> {{eghamat.gheymat_har_shab}}</span> </div>
+                <a href="{% url 'eghamat_detail' pk=eghamat.id %}" class="btn">جزئیاتو ببین و همین الان رزرو کن</a>
+            </div>
+        </div>
+        {% endfor %}
+
+
+
+
+    </div>
+
+</section>
+
+<!-- packages section ends -->
+{% endblock %}

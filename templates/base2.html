@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+{% load static %}
+{% load render_partial %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block page_title %}
+    	رزرو اقامتگاه
+    {% endblock page_title %}
+    </title>
+{% include 'header_reference.html' %}
+
+</head>
+<body>
+
+<!-- header section starts  -->
+
+<header>
+    
+
+    <div id="menu-bar" class="fas fa-bars"></div>
+
+    <a href="#" class="logo"><span>رزرو</span> اقامتگاه</a>
+
+    <nav class="navbar">
+        <a href="{% url 'home' %}">خانه</a>
+        <a href="{% url 'eghamat_list' %}">پکیج ها</a>
+        <a href="{% url 'article_list' %}">مقالات</a>
+        <a href="#gallery">گالری عکس</a>
+        <a href="{% url 'contact_page' %}">ارتباط با ما</a>
+
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'profile' %}">پروفایل من</a>
+            <a href="{% url 'logout_page' %}">خروج</a>
+        {% elif not request.user.is_authenticated %}
+            <a href="{% url 'login_page' %}">ورود/ثبت نام</a>
+        {% endif %}
+
+    </nav>
+
+    <div class="icons">
+        <i class="fas fa-search" id="search-btn"></i>
+        <i class="fas fa-user" id="login-btn"></i>
+    </div>
+
+    <form action="" class="search-bar-container">
+        <input type="search" id="search-bar" placeholder="سرچ کنید">
+        <label for="search-bar" class="fas fa-search"></label>
+    </form>
+    
+</header>
+<div class="login-form-container">
+
+    <i class="fas fa-times" id="form-close"></i>
+
+    <form action="">
+        <h3>ورود</h3>
+        <input type="email" class="box" placeholder="ایمیل خود را وارد کنید">
+        <input type="password" class="box" placeholder="رمز عبور خود را وارد کنید">
+        <input type="submit" value="ورود" class="btn">
+        <input type="checkbox" id="remember">
+        <label for="remember">مرا به خاطر بسپار</label>
+        <p>فراموشی رمز عبور؟<a href="#">اینجا کلیک کنید</a></p>
+        <p>آیا شما ثبت نام نکرده اید؟<a href="#">اکنون ثبت نام کنید</a></p>
+    </form>
+
+</div>
+
+
+{% block page_content %}
+	{% include 'home/home2.html' %}
+{% endblock page_content%}
+
+
+{% render_partial 'home.views.site_footer' %}
+
+{% include 'footer_reference.html' %}
+
+
+</body>
+</html>

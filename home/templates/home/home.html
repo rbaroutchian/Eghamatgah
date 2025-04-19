@@ -3,19 +3,53 @@
 
 {% block content %}
 	<!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h2>پیدا کردن اقامتگاه رویایی شما</h2>
-            <p>بهترین اقامتگاه‌ها و ویلاها را در سراسر ایران کشف کنید</p>
-            <div class="search-box">
-                <input type="text" placeholder="جستجوی مقصد...">
-                <input type="date" placeholder="تاریخ ورود">
-                <input type="date" placeholder="تاریخ خروج">
-                <button class="btn btn-primary">جستجو</button>
+<section class="hero">
+    <div class="hero-content">
+        <h2>پیدا کردن اقامتگاه رویایی شما</h2>
+        <p>بهترین اقامتگاه‌ها و ویلاها را در سراسر ایران کشف کنید</p>
+        <form method="GET" action="{% url 'search' %}" class="search-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="shahr">شهر  را بنویسید</label>
+                    <input type="text" id="shahr" name="shahr" placeholder="نام شهر">
+                </div>
+{#                <div class="form-group">#}
+{#                    <label for="ostan">استان</label>#}
+{#                    <input type="text" id="ostan" name="ostan" placeholder="نام استان">#}
+{#                </div>#}
             </div>
-        </div>
-    </section>
 
+{#            <div class="form-row">#}
+{#                <div class="form-group">#}
+{#                    <label for="eghamat_type">نوع اقامتگاه</label>#}
+{#                    <select id="eghamat_type" name="eghamat_type">#}
+{#                        <option value="">همه انواع</option>#}
+{#                        {% for type in types %}#}
+{#                        <option value="{{ type.0 }}">{{ type.1 }}</option>#}
+{#                        {% endfor %}#}
+{#                    </select>#}
+{#                </div>#}
+{#                <div class="form-group">#}
+{#                    <label for="zarfiat">حداقل ظرفیت</label>#}
+{#                    <input type="number" id="zarfiat" name="zarfiat" placeholder="تعداد نفرات">#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <div class="form-row">#}
+{#                <div class="form-group">#}
+{#                    <label for="min_price">حداقل قیمت (تومان)</label>#}
+{#                    <input type="number" id="min_price" name="min_price" placeholder="حداقل قیمت">#}
+{#                </div>#}
+{#                <div class="form-group">#}
+{#                    <label for="max_price">حداکثر قیمت (تومان)</label>#}
+{#                    <input type="number" id="max_price" name="max_price" placeholder="حداکثر قیمت">#}
+{#                </div>#}
+{#            </div>#}
+
+            <button type="submit" class="btn btn-primary">جستجوی اقامتگاه</button>
+        </form>
+    </div>
+</section>
     <!-- Featured Properties -->
     <section class="featured-properties">
         <h2>اقامتگاه‌های برتر</h2>

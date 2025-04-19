@@ -1,0 +1,76 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block page_title %}
+    اقامتگاه های شهر {{ eghamatgahs.shahr }}
+{% endblock %}
+
+{% block page_content %}
+<!-- Properties List -->
+
+<section class="properties-list">
+
+    <div class="container">
+          <div class="text-center mt-5 mb-4 w-100">
+            <h2 class="fw-bold text-primary">اقامتگاه‌های شهر {{ shahr }}</h2>
+            </div>
+
+        <div class="row g-4">
+            {% for search in eghamatgahs %}
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        {% if search.image %}
+                            <img src="{{ search.image.url }}" class="card-img-top custom-img"  alt="ویلای شمال">
+                        {% else %}
+                            <img src="{% static 'nopic.jpg' %}" class="card-img-top custom-img" alt="ویلای شمال">
+                        {% endif %}
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ search.title }}</h5>
+                            <p class="card-text text-muted mb-2">{{ search.shahr }}</p>
+                            <ul class="list-unstyled mb-3">
+                                <li><i class="fas fa-bed me-1 text-primary"></i> ظرفیت: {{ search.zarfiat }} نفر</li>
+                                <li><i class="fas fa-bath me-1 text-primary"></i> ۲ حمام</li>
+                                <li><i class="fas fa-ruler-combined me-1 text-primary"></i> ۲۰۰ متر</li>
+                            </ul>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-success fw-bold">شبانه: {{ search.gheymat_har_shab }} تومان</span>
+                                <a href="{% url 'eghamat_detail' pk=search.id %}" class="btn btn-outline-primary btn-sm">جزئیات بیشتر و رزرو</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if paginator.num_pages > 1 %}
+        <nav class="mt-5" aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                            <i class="ci-arrow-left me-2"></i> قبلی
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for page in paginator.page_range %}
+                    <li class="page-item {% if page == page_obj.number %}active{% endif %}">
+                        <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                    </li>
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                            بعدی <i class="ci-arrow-right ms-2"></i>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

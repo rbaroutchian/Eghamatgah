@@ -1,0 +1,85 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% block page_title %}
+	صفحه ورود
+{% endblock %}
+{% block page_content %}
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+	<link type="text/css" href="{% static 'css/style_login.css' %}" rel="stylesheet" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+	<div class="container" id="container">
+		<!-- start sing up form -->
+		<div class="form-container sign-up-container">
+			<form method="POST" action="{% url 'register_page' %}" class="needs-validation" novalidate>
+                {% csrf_token %}
+				<h1>ایجاد حساب</h1>
+				<div class="social-container">
+					<a href="#" class="social"><i class="fa fa-facebook-f"></i></a>
+					<a href="#" class="social"><i class="fa fa-google-plus"></i></a>
+					<a href="#" class="social"><i class="fa fa-linkedin"></i></a>
+				</div>
+				<span>یا با ایمیل خود حساب ایجاد کنید</span>
+				<input type="text" name="username" placeholder="نام" required />
+				<input type="email" name="email" placeholder="ایمیل" required />
+				<input type="number" name="user_number" placeholder="موبایل" required />
+				<input type="password" name="password" placeholder="رمز عبور" required />
+				<button type="submit">عضویت</button>
+			</form>
+		</div>
+		<!-- end sing up form -->
+		<!-- start sing in form -->
+		<div class="form-container sign-in-container">
+			<form action="{% url 'login_page' %}" method="POST">
+                {% csrf_token %}
+				<h1>ورود</h1>
+				<div class="social-container">
+					<a href="#" class="social"><i class="fa fa-facebook-f"></i></a>
+					<a href="#" class="social"><i class="fa fa-google-plus"></i></a>
+					<a href="#" class="social"><i class="fa fa-linkedin"></i></a>
+				</div>
+				<span>یا با حساب خود وارد شوید</span>
+				{% if login_form.non_field_errors %}
+                    <div style="color: red;">
+                    {{ login_form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <input type="text" name="username" placeholder="نام کاربری" value="{{ login_form.username.value|default_if_none:'' }}">
+                {% if login_form.username.errors %}
+                    <div style="color: red;">{{ login_form.username.errors.0 }}</div>
+                {% endif %}
+
+                <input type="password" name="Password" placeholder="رمز عبور">
+                {% if login_form.Password.errors %}
+                    <div style="color: red;">{{ login_form.Password.errors.0 }}</div>
+                {% endif %}
+				<a href="#">رمز عبور خود را فراموش کرده ام !</a>
+				<button type="submit">ورود</button>
+
+			</form>
+		</div>
+		<!-- end sing in form -->
+
+		<div class="overlay-container">
+			<div class="overlay">
+				<!-- start sing in overlay -->
+				<div class="overlay-panel overlay-right">
+					<h1>خوش آمدید</h1>
+					<p>برای برقراری ارتباط با ما لطفا حساب کاربری خود را ایجاد کنید</p>
+					<button class="ghost" id="signIn">ورود</button>
+				</div>
+				<!-- end sing in overlay -->
+				<!-- start sing up overlay -->
+				<div class="overlay-panel overlay-left">
+					<h1>سلام، دوست خوبم</h1>
+					<p>وارد حساب کاربری خود شوید و با ما به کشف جهان بپردازید</p>
+					<button class="ghost" id="signUp">عضویت</button>
+				</div>
+				<!-- end sing up overlay -->
+			</div>
+		</div>
+	</div>
+
+    <script  src="{% static 'js/scripts_login.js' %}"></script>
+{% endblock %}

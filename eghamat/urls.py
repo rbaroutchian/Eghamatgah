@@ -23,6 +23,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.url')),
     path('eghamatgah/', include('eghamatgah.url')),
+    path('admin-panel/', include('seller_admin_panel.url')),
+    path('account/', include('user_account.url')),
+    path('booking/', include('booking.url')),
+    path('article/', include('article.url')),
+    path('contact/', include('contact.url')),
+
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

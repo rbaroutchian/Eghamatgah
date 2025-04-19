@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block admin_title %}
+پنل مدیریت
+    {% endblock %}
+    </title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'admin_panel/css/style.css' %}">
+
+</head>
+<body>
+
+<div class="dashboard">
+    {% include 'include/sidebar.html' %}
+
+    <!-- محتوای اصلی -->
+    <div class="main-content">
+{% block admin_content %}
+
+    {% endblock %}
+
+
+
+
+
+{#        <!-- بخش پیام‌ها -->#}
+{#        <div class="content-section" id="messages-section">#}
+{#            <div class="dashboard-header">#}
+{#                <h2>پیام‌ها</h2>#}
+{#            </div>#}
+{##}
+{#            <div class="card">#}
+{#                <div style="display: flex; border-bottom: 1px solid #eee; padding: 15px 0;">#}
+{#                    <div style="margin-left: 15px;">#}
+{#                        <input type="checkbox">#}
+{#                    </div>#}
+{#                    <div style="flex: 1;">#}
+{#                        <div style="display: flex; justify-content: space-between;">#}
+{#                            <h4 style="margin: 0;">محمد رضایی</h4>#}
+{#                            <span style="color: #777; font-size: 13px;">۲ روز پیش</span>#}
+{#                        </div>#}
+{#                        <p style="margin: 5px 0 0; color: #555;">سلام، در مورد امکانات ویلای استخردار سوال داشتم...</p>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#                <div style="display: flex; border-bottom: 1px solid #eee; padding: 15px 0;">#}
+{#                    <div style="margin-left: 15px;">#}
+{#                        <input type="checkbox">#}
+{#                    </div>#}
+{#                    <div style="flex: 1;">#}
+{#                        <div style="display: flex; justify-content: space-between;">#}
+{#                            <h4 style="margin: 0;">سارا محمدی</h4>#}
+{#                            <span style="color: #777; font-size: 13px;">۳ روز پیش</span>#}
+{#                        </div>#}
+{#                        <p style="margin: 5px 0 0; color: #555;">آیا امکان ورود حیوان خانگی به آپارتمان وجود دارد؟</p>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#                <div style="display: flex; padding: 15px 0;">#}
+{#                    <div style="margin-left: 15px;">#}
+{#                        <input type="checkbox">#}
+{#                    </div>#}
+{#                    <div style="flex: 1;">#}
+{#                        <div style="display: flex; justify-content: space-between;">#}
+{#                            <h4 style="margin: 0;">شرکت سفرهای نوروزی</h4>#}
+{#                            <span style="color: #777; font-size: 13px;">۱ هفته پیش</span>#}
+{#                        </div>#}
+{#                        <p style="margin: 5px 0 0; color: #555;">درخواست همکاری برای رزرو گروهی داریم...</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+
+
+
+{#        <!-- بخش درآمدها -->#}
+{#        <div class="content-section" id="earnings-section">#}
+{#            <div class="dashboard-header">#}
+{#                <h2>گزارش درآمدها</h2>#}
+{#                <div>#}
+{#                    <select style="padding: 8px; border-radius: 4px; border: 1px solid #ddd;">#}
+{#                        <option>ماه جاری</option>#}
+{#                        <option>ماه گذشته</option>#}
+{#                        <option>۳ ماه اخیر</option>#}
+{#                        <option>۶ ماه اخیر</option>#}
+{#                        <option>سال جاری</option>#}
+{#                    </select>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <div class="card">#}
+{#                <div style="display: flex; justify-content: space-between; align-items: center;">#}
+{#                    <h3 style="margin: 0;">درآمد ماه جاری: <span style="color: #4caf50;">۴,۵۰۰,۰۰۰ تومان</span></h3>#}
+{#                    <a href="#" class="btn"><i class="fas fa-download"></i> دریافت گزارش</a>#}
+{#                </div>#}
+{##}
+{#                <div style="margin-top: 20px; height: 300px; background: #f9f9f9; display: flex; justify-content: center; align-items: center;">#}
+{#                    <!-- اینجا نمودار درآمد قرار می‌گیرد -->#}
+{#                    <p style="color: #777;">نمودار درآمدها اینجا نمایش داده می‌شود</p>#}
+{#                </div>#}
+{##}
+{#                <div style="margin-top: 30px;">#}
+{#                    <h3>تراکنش‌های اخیر</h3>#}
+{#                    <table>#}
+{#                        <thead>#}
+{#                            <tr>#}
+{#                                <th>تاریخ</th>#}
+{#                                <th>کد رزرو</th>#}
+{#                                <th>مهمان</th>#}
+{#                                <th>مبلغ</th>#}
+{#                                <th>وضعیت پرداخت</th>#}
+{#                            </tr>#}
+{#                        </thead>#}
+{#                        <tbody>#}
+{#                            <tr>#}
+{#                                <td>۱۴۰۲/۰۵/۱۰</td>#}
+{#                                <td>#RES-2023-122</td>#}
+{#                                <td>زهرا اکبری</td>#}
+{#                                <td>۱,۱۰۰,۰۰۰ تومان</td>#}
+{#                                <td><span style="color: #4caf50;">پرداخت شده</span></td>#}
+{#                            </tr>#}
+{#                            <tr>#}
+{#                                <td>۱۴۰۲/۰۵/۰۵</td>#}
+{#                                <td>#RES-2023-121</td>#}
+{#                                <td>رضا محمدی</td>#}
+{#                                <td>۸۰۰,۰۰۰ تومان</td>#}
+{#                                <td><span style="color: #4caf50;">پرداخت شده</span></td>#}
+{#                            </tr>#}
+{#                            <tr>#}
+{#                                <td>۱۴۰۲/۰۵/۰۱</td>#}
+{#                                <td>#RES-2023-120</td>#}
+{#                                <td>نازنین حسینی</td>#}
+{#                                <td>۱,۵۰۰,۰۰۰ تومان</td>#}
+{#                                <td><span style="color: #ff9800;">در انتظار پرداخت</span></td>#}
+{#                            </tr>#}
+{#                        </tbody>#}
+{#                    </table>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{##}
+{#        <!-- بخش تنظیمات -->#}
+{#        <div class="content-section" id="settings-section">#}
+{#            <div class="dashboard-header">#}
+{#                <h2>تنظیمات حساب کاربری</h2>#}
+{#            </div>#}
+{##}
+{#            <div class="card">#}
+{#                <form action="" style="max-width: 600px;">#}
+{#                    <h3>اطلاعات شخصی</h3>#}
+{#                    <div style="margin-bottom: 15px;">#}
+{#                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">نام کامل</label>#}
+{#                        <input type="text" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" value="مشتذیان عزیز">#}
+{#                    </div>#}
+{##}
+{#                    <div style="margin-bottom: 15px;">#}
+{#                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">ایمیل</label>#}
+{#                        <input type="email" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" value="host@example.com">#}
+{#                    </div>#}
+{##}
+{#                    <div style="margin-bottom: 15px;">#}
+{#                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">شماره تماس</label>#}
+{#                        <input type="tel" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" value="09123456789">#}
+{#                    </div>#}
+{##}
+{#                    <h3 style="margin-top: 30px;">تغییر رمز عبور</h3>#}
+{#                    <div style="margin-bottom: 15px;">#}
+{#                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">رمز عبور فعلی</label>#}
+{#                        <input type="password" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">#}
+{#                    </div>#}
+{##}
+{#                    <div style="margin-bottom: 15px;">#}
+{#                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">رمز عبور جدید</label>#}
+{#                        <input type="password" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">#}
+{#                    </div>#}
+{##}
+{#                    <div style="margin-bottom: 15px;">#}
+{#                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">تکرار رمز عبور جدید</label>#}
+{#                        <input type="password" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">#}
+{#                    </div>#}
+{##}
+{#                    <button type="submit" class="btn" style="margin-top: 20px;">ذخیره تغییرات</button>#}
+{#                </form>#}
+{#            </div>#}
+{#        </div>#}
+    </div>
+</div>
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    // نمایش تاریخ امروز
+    const today = new Date();
+    const persianDate = today.toLocaleDateString('fa-IR');
+    document.getElementById('current-date').textContent = `امروز: ${persianDate}`;
+
+    {#// تغییر بین بخش‌های مختلف داشبورد#}
+    {#document.querySelectorAll('.sidebar-menu a').forEach(link => {#}
+    {#    link.addEventListener('click', function(e) {#}
+    {#        e.preventDefault();#}
+    {##}
+    {#        // حذف کلاس active از همه لینک‌ها#}
+    {#        document.querySelectorAll('.sidebar-menu a').forEach(item => {#}
+    {#            item.classList.remove('active');#}
+    {#        });#}
+    {##}
+    {#        // اضافه کردن کلاس active به لینک فعلی#}
+    {#        this.classList.add('active');#}
+    {##}
+    {#        // مخفی کردن همه بخش‌ها#}
+    {#        document.querySelectorAll('.content-section').forEach(section => {#}
+    {#            section.classList.remove('active');#}
+    {#        });#}
+    {##}
+    {#        // نمایش بخش مربوطه#}
+    {#        const sectionId = this.getAttribute('data-section') + '-section';#}
+    {#        document.getElementById(sectionId).classList.add('active');#}
+    {#    });#}
+    {#});#}
+
+    // افزودن اقامتگاه جدید
+    document.getElementById('add-property-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        alert('این بخش برای افزودن اقامتگاه جدید است. در نسخه کامل پیاده‌سازی می‌شود.');
+    });
+</script>
+
+</body>
+</html>

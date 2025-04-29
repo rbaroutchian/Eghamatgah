@@ -5,6 +5,8 @@ from django.core.validators import FileExtensionValidator
 
 
 
+
+
 class Eghamatgah_Category(models.Model):
     parent = models.ForeignKey('Eghamatgah_Category', null=True,
                                related_name='parenteghamatcategory', on_delete=models.CASCADE,
@@ -110,6 +112,7 @@ class EghamatComment(models.Model):
     create_date = models.DateTimeField(auto_now_add=True,verbose_name='تاریخ ثبت')
     text = models.TextField(verbose_name='متن نظر')
     star = models.CharField(max_length=20, choices=STAR_TYPE, verbose_name='امتیاز')
+    booking = models.OneToOneField('booking.Booking',on_delete=models.CASCADE,default='',null=True,blank=True, verbose_name='رزرو مربوطه')
 
     def __str__(self):
         return str(self.user)

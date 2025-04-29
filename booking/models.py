@@ -1,6 +1,8 @@
 from django.db import models
-from eghamatgah.models import Eghamatgah
+
+import eghamatgah.models
 from user_account.models import User
+from eghamatgah.models import Eghamatgah
 # Create your models here.
 
 
@@ -12,7 +14,7 @@ class Booking(models.Model):
     persons = models.PositiveIntegerField(verbose_name='تعداد نفرات')
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, choices=[('pending', 'در انتظار'), ('confirmed', 'تایید شده'), ('cancelled', 'لغو شده')], default='pending')
-    total_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    total_price = models.DecimalField(max_digits=10, decimal_places=0, null=True, blank=True)
 
     def __str__(self):
         return f"{self.user} - {self.eghamat} ({self.check_in} to {self.check_out})"

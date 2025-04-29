@@ -9,7 +9,7 @@
         <div class="dashboard-header">
             <h2>داشبورد میزبان</h2>
             <div>
-                <span id="current-date">امروز: ۱۴۰۲/۰۵/۱۵</span>
+                <span>امروز: {% today_jalali %}</span>
             </div>
         </div>
 
@@ -31,7 +31,7 @@
                             <div style="display: flex; gap: 10px; margin-top: 10px;">
                                 <span><i class="fas fa-bed"></i> {{eghamat.tedad_otagh}} خوابه</span>
                                 <span><i class="fas fa-user-friends"></i> حداکثر {{eghamat.zarfiat}} نفر</span>
-                                <span><i class="fas fa-star" style="color: gold;"></i> ۴.۹ ({{eghamat.comment_count}} نظر)</span>
+                                <span><i class="fas fa-star" style="color: gold;"></i>  ({{eghamat.comment_count}} نظر)</span>
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,13 @@
                         </div>
                         <div>
                             <a href="{% url 'update_eghamat' pk=eghamat.id %}" class="btn btn-sm"><i class="fas fa-edit"></i> ویرایش</a>
-                            <a href="#" class="btn btn-sm" style="background: #f44336;"><i class="fas fa-trash"></i> حذف</a>
+                        <form method="post" action="{% url 'delete_eghamat' pk=eghamat.id %}" style="display:inline;" onsubmit="return confirm('آیا مطمئن هستید که می‌خواهید این اقامتگاه را حذف کنید؟');">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm" style="background: #f44336;">
+                                <i class="fas fa-trash"></i> حذف
+                            </button>
+                        </form>
+                            {#                            <a href="{% url 'delete_eghamat' pk=eghamat.id %}" class="btn btn-sm" style="background: #f44336;"><i class="fas fa-trash"></i> حذف</a>#}
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,90 @@
+{% extends 'base/seller_dashboard.html' %}
+{% load poll_extras %}
+
+{% block admin_title %}
+	ویرایش پروفایل میزبان
+{% endblock %}
+
+{% block admin_content %}
+<div class="dashboard-header">
+    <h2>پروفایل من</h2>
+    <div>
+        <span>امروز: {% today_jalali %}</span>
+    </div>
+</div>
+
+<div class="dashboard-header">
+    <h2>ویرایش اطلاعات پروفایل</h2>
+    <div>
+        <a href="{% url 'admin_home' %}" class="btn"><i class="fas fa-arrow-left"></i> بازگشت</a>
+    </div>
+</div>
+
+<div class="card">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+            <div>
+                <h3>اطلاعات کاربری</h3>
+{#                <div class="form-group">#}
+{#                    <label>نام کامل</label>#}
+{#                    <input type="text" class="form-control" value="{{ current_user.get_full_name }}" disabled>#}
+{#                </div>#}
+
+                <div class="form-group">
+                    <label>نام کمپانی</label>
+                    {{ form.company_name }}
+                </div>
+
+{#                <div class="form-group">#}
+{#                    <label>ایمیل</label>#}
+{#                    {{ form.email }}#}
+{#                </div>#}
+
+                <div class="form-group">
+                    <label>شماره موبایل</label>
+                    {{ form.phone }}
+                </div>
+
+
+            </div>
+
+            <div>
+                <h3>اطلاعات تکمیلی</h3>
+{#                <div class="form-group">#}
+{#                    <label>استان</label>#}
+{#                    {{ form.ostan }}#}
+{#                </div>#}
+{##}
+{#                <div class="form-group">#}
+{#                    <label>شهر</label>#}
+{#                    {{ form.shahr }}#}
+{#                </div>#}
+{##}
+{#                <div class="form-group">#}
+{#                    <label>درباره من</label>#}
+{#                    {{ form.bio }}#}
+{#                </div>#}
+{##}
+{#                <div class="form-group">#}
+{#                    <label>تصویر پروفایل</label>#}
+{#                    {{ form.avatar }}#}
+{#                    {% if user.seller.avatar %}#}
+{#                        <img src="{{ user.seller.avatar.url }}" alt="پروفایل" style="width: 100px; margin-top: 10px;">#}
+{#                    {% endif %}#}
+{#                </div>#}
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; text-align: left;">
+            <button type="submit" class="btn">
+                <i class="fas fa-save"></i> ذخیره تغییرات
+            </button>
+            <a href="#" class="btn" style="background: #999;">
+                <i class="fas fa-times"></i> انصراف
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

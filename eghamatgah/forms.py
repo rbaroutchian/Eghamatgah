@@ -20,6 +20,10 @@ class EghamatCommentForm(forms.ModelForm):
         }
 
 
+class EghamatCommentFormAdmin(forms.ModelForm):
+    class Meta:
+        model = EghamatComment
+        fields = ['eghamat', 'user', 'text']
 
 
 

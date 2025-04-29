@@ -2,7 +2,7 @@ from django import forms
 from .models import Seller
 
 
-class SellerForm(forms.ModelForm):
+class SellerProfileForm(forms.ModelForm):
     class Meta:
         model = Seller
-        fields = '__all__'
+        fields = ['company_name', 'phone']

@@ -8,7 +8,7 @@
 
     <title>
         {% block page_title %}
-    	رزرو اقامتگاه
+            صفحه اصلی - رزرو اقامتگاه
     {% endblock page_title %}
     </title>
 {% include 'header_reference.html' %}
@@ -34,7 +34,11 @@
 
         {% if request.user.is_authenticated %}
             <a href="{% url 'profile' %}">پروفایل من</a>
-            <a href="{% url 'logout_page' %}">خروج</a>
+            {% if request.user.is_authenticated and request.user.seller and request.user.seller.is_active %}
+
+                <a href="{% url 'admin_home' %}">داشبورد میزبان </a>
+            {% endif %}
+                <a href="{% url 'logout_page' %}">خروج</a>
         {% elif not request.user.is_authenticated %}
             <a href="{% url 'login_page' %}">ورود/ثبت نام</a>
         {% endif %}

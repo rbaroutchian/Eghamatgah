@@ -1,19 +1,20 @@
     <!-- سایدبار -->
     <div class="sidebar">
         <div class="sidebar-header">
-            <img src="images/host-avatar.jpg" alt="میزبان">
+            <img src="#" alt="بدون عکس">
             <h3>حساب میزبان</h3>
-            <p>مشتذیان عزیز</p>
+            <h3>صاحبان اقامتگاه</h3>
+            <p>خوش آمدی {{ user.first_name }} عزیز</p>
         </div>
 
         <div class="sidebar-menu">
             <a href="{% url 'admin_home' %}"><i class="fas fa-tachometer-alt"></i> داشبورد</a>
             <a href="{% url 'eghamat_list_dashboard' %}"><i class="fas fa-home"></i> اقامتگاه‌های من</a>
-            <a href="#" data-section="bookings"><i class="fas fa-calendar-check"></i> رزروها</a>
-            <a href="#" data-section="messages"><i class="fas fa-envelope"></i> پیام‌ها</a>
-            <a href="#" data-section="reviews"><i class="fas fa-star"></i> نظرات</a>
-            <a href="#" data-section="earnings"><i class="fas fa-wallet"></i> درآمدها</a>
-            <a href="#" data-section="settings"><i class="fas fa-cog"></i> تنظیمات</a>
-            <a href="#"><i class="fas fa-sign-out-alt"></i> خروج</a>
+            <a href="{% url 'booking_list' %}"><i class="fas fa-calendar-check"></i> رزروها</a>
+{#            <a href="#" data-section="messages"><i class="fas fa-envelope"></i> پیام‌ها</a>#}
+            <a href="{% url 'comment_list' %}"><i class="fas fa-star"></i> نظرات</a>
+            <a href="{% url 'daramad' %}"><i class="fas fa-wallet"></i> درآمدها</a>
+            <a href="{% url 'seller_profile' %}"><i class="fas fa-cog"></i> تنظیمات پروفایل</a>
+            <a href="{% url 'home' %}"><i class="fas fa-sign-out-alt"></i> خروج</a>
         </div>
     </div>

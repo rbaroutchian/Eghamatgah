@@ -1,13 +1,19 @@
 {% extends 'base/seller_dashboard.html' %}
-
+{% load poll_extras %}
 {% block admin_title %}
 	مدیریت رزرو ها
 {% endblock %}
 
 {% block admin_content %}
+        <div class="dashboard-header">
+            <h2>داشبورد میزبان</h2>
+            <div>
+                <span>امروز: {% today_jalali %}</span>
+            </div>
+        </div>
 
         <!-- بخش رزروها -->
-        <div class="content-section" id="bookings-section">
+        <div>
             <div class="dashboard-header">
                 <h2>مدیریت رزروها</h2>
                 <div>
@@ -35,45 +41,22 @@
                         </tr>
                     </thead>
                     <tbody>
+                    {% for booking in object_list %}
                         <tr>
-                            <td>#RES-2023-125</td>
-                            <td>ویلای استخردار شمال</td>
-                            <td>محمد رضایی</td>
-                            <td>۱۴۰۲/۰۵/۲۰ - ۱۴۰۲/۰۵/۲۳</td>
-                            <td>۱,۲۰۰,۰۰۰ تومان</td>
-                            <td><span class="status-confirmed">تأیید شده</span></td>
+                            <td>{{booking.id}}</td>
+                            <td>{{ booking.eghamat.title}}</td>
+                            <td>{{ booking.user.first_name }} {{ booking.user.last_name }}</td>
+                            <td>{{booking.check_in|to_jalali}} - {{booking.check_out|to_jalali}}</td>
+                            <td>{{booking.total_price|three_digits_currency}}</td>
+                            <td><span class="status-confirmed">{{ booking.status}}</span></td>
                             <td>
                                 <a href="#" class="btn btn-sm">مشاهده</a>
                                 <a href="#" class="btn btn-sm" style="background: #4caf50;"><i class="fas fa-check"></i></a>
                                 <a href="#" class="btn btn-sm" style="background: #f44336;"><i class="fas fa-times"></i></a>
                             </td>
                         </tr>
-                        <tr>
-                            <td>#RES-2023-124</td>
-                            <td>آپارتمان مبله تهران</td>
-                            <td>فاطمه محمدی</td>
-                            <td>۱۴۰۲/۰۵/۱۸ - ۱۴۰۲/۰۵/۱۹</td>
-                            <td>۶۵۰,۰۰۰ تومان</td>
-                            <td><span class="status-confirmed">تأیید شده</span></td>
-                            <td>
-                                <a href="#" class="btn btn-sm">مشاهده</a>
-                                <a href="#" class="btn btn-sm" style="background: #4caf50;"><i class="fas fa-check"></i></a>
-                                <a href="#" class="btn btn-sm" style="background: #f44336;"><i class="fas fa-times"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>#RES-2023-123</td>
-                            <td>کلبه جنگلی گیلان</td>
-                            <td>علی حسینی</td>
-                            <td>۱۴۰۲/۰۵/۲۵ - ۱۴۰۲/۰۵/۲۷</td>
-                            <td>۹۸۰,۰۰۰ تومان</td>
-                            <td><span class="status-pending">در انتظار تأیید</span></td>
-                            <td>
-                                <a href="#" class="btn btn-sm">مشاهده</a>
-                                <a href="#" class="btn btn-sm" style="background: #4caf50;"><i class="fas fa-check"></i></a>
-                                <a href="#" class="btn btn-sm" style="background: #f44336;"><i class="fas fa-times"></i></a>
-                            </td>
-                        </tr>
+                    {% endfor %}
+
                     </tbody>
                 </table>
             </div>

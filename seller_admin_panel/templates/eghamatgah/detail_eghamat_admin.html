@@ -1,4 +1,5 @@
 {% extends 'base/seller_dashboard.html' %}
+{% load poll_extras %}
 
 {% block admin_title %}
 	ویرایش اقامتگاه
@@ -8,7 +9,7 @@
                 <div class="dashboard-header">
             <h2>داشبورد میزبان</h2>
             <div>
-                <span id="current-date">امروز: ۱۴۰۲/۰۵/۱۵</span>
+                <span>امروز: {% today_jalali %}</span>
             </div>
         </div>
 

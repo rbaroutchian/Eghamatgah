@@ -1,4 +1,5 @@
 {% extends 'base/seller_dashboard.html' %}
+{% load poll_extras %}
 {% block admin_title %}
 	پنل مدیریت -داشبورد
 {% endblock admin_title %}
@@ -7,7 +8,7 @@
         <div class="dashboard-header">
             <h2>داشبورد میزبان</h2>
             <div>
-                <span id="current-date">امروز: ۱۴۰۲/۰۵/۱۵</span>
+                <span>امروز: {% today_jalali %}</span>
             </div>
         </div>
 
@@ -17,25 +18,25 @@
             <div class="dashboard-cards">
                 <div class="card">
                     <h3>رزروهای فعال</h3>
-                    <div class="number">۱۲</div>
+                    <div class="number">{{recent_booking_count}}</div>
                     <p>در ماه جاری</p>
                 </div>
 
                 <div class="card">
                     <h3>درآمد ماه</h3>
-                    <div class="number">۴,۵۰۰,۰۰۰ تومان</div>
-                    <p>۳۰% افزایش نسبت به ماه قبل</p>
+                    <div class="number">{{ daramad|three_digits_currency }}</div>
+                    <p>کل درآمد در یک ماه اخیر</p>
                 </div>
 
                 <div class="card">
                     <h3>میانگین امتیاز</h3>
-                    <div class="number">۴.۸ <i class="fas fa-star" style="color: gold;"></i></div>
-                    <p>از ۱۵ نظر</p>
+                    <div class="number">{{ avg_star|floatformat:1 }}<i class="fas fa-star" style="color: gold;"></i></div>
+                    <p>از {{eghamatgah_comment}} نظر</p>
                 </div>
 
                 <div class="card">
                     <h3>اقامتگاه‌ها</h3>
-                    <div class="number">۳</div>
+                    <div class="number">{{eghamatgah_count}}</div>
                     <p>فعال</p>
                 </div>
             </div>
@@ -50,49 +51,24 @@
                             <th>کد رزرو</th>
                             <th>اقامتگاه</th>
                             <th>مهمان</th>
-                            <th>تاریخ</th>
-                            <th>مبلغ</th>
-                            <th>وضعیت</th>
+                            <th>تاریخ ورود و خروج</th>
+                            <th> مبلغ تمام شده</th>
+                            <th>وضعیت رزرو</th>
                             <th>عملیات</th>
                         </tr>
                     </thead>
                     <tbody>
+                    {% for booking in recent_booking %}
                         <tr>
-                            <td>#RES-2023-125</td>
-                            <td>ویلای استخردار شمال</td>
-                            <td>محمد رضایی</td>
-                            <td>۱۴۰۲/۰۵/۲۰ - ۱۴۰۲/۰۵/۲۳</td>
-                            <td>۱,۲۰۰,۰۰۰ تومان</td>
-                            <td><span class="status-confirmed">تأیید شده</span></td>
+                            <td>{{booking.id}}</td>
+                            <td>{{ booking.eghamat.title}}</td>
+                            <td>{{ booking.user.first_name}} {{ booking.user.last_name }}</td>
+                            <td>ورود {{booking.check_in|to_jalali}} - خروج {{booking.check_out|to_jalali}}</td>
+                            <td>{{booking.total_price|three_digits_currency}}</td>
+                            <td><span class="status-confirmed">{{ booking.status}}</span></td>
                             <td><a href="#" class="btn btn-sm">مشاهده</a></td>
                         </tr>
-                        <tr>
-                            <td>#RES-2023-124</td>
-                            <td>آپارتمان مبله تهران</td>
-                            <td>فاطمه محمدی</td>
-                            <td>۱۴۰۲/۰۵/۱۸ - ۱۴۰۲/۰۵/۱۹</td>
-                            <td>۶۵۰,۰۰۰ تومان</td>
-                            <td><span class="status-confirmed">تأیید شده</span></td>
-                            <td><a href="#" class="btn btn-sm">مشاهده</a></td>
-                        </tr>
-                        <tr>
-                            <td>#RES-2023-123</td>
-                            <td>کلبه جنگلی گیلان</td>
-                            <td>علی حسینی</td>
-                            <td>۱۴۰۲/۰۵/۲۵ - ۱۴۰۲/۰۵/۲۷</td>
-                            <td>۹۸۰,۰۰۰ تومان</td>
-                            <td><span class="status-pending">در انتظار تأیید</span></td>
-                            <td><a href="#" class="btn btn-sm">مشاهده</a></td>
-                        </tr>
-                        <tr>
-                            <td>#RES-2023-122</td>
-                            <td>ویلای استخردار شمال</td>
-                            <td>زهرا اکبری</td>
-                            <td>۱۴۰۲/۰۵/۱۰ - ۱۴۰۲/۰۵/۱۲</td>
-                            <td>۱,۱۰۰,۰۰۰ تومان</td>
-                            <td><span class="status-canceled">لغو شده</span></td>
-                            <td><a href="#" class="btn btn-sm">مشاهده</a></td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>

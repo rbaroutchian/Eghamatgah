@@ -1,0 +1,111 @@
+{% extends 'base/seller_dashboard.html' %}
+{% load poll_extras %}
+{% load humanize %}
+
+{% block admin_title %}
+    مدیریت درآمد ها
+{% endblock %}
+
+{% block admin_content %}
+    <div class="dashboard-header">
+        <h2>داشبورد میزبان</h2>
+        <div>
+            <span>امروز: {% today_jalali %}</span>
+        </div>
+    </div>
+
+    <!-- بخش درآمدها -->
+    <div>
+<       <div class="dashboard-header">
+            <h2>گزارش درآمدها</h2>
+            <div>
+                <select id="month-selector" style="padding: 8px; border-radius: 4px; border: 1px solid #ddd;">
+                    <option value="this_month">ماه جاری</option>
+                    <option value="last_month">ماه گذشته</option>
+                    <option value="3_months">۳ ماه اخیر</option>
+                    <option value="6_months">۶ ماه اخیر</option>
+                    <option value="this_year">سال جاری</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="margin: 0;">درآمد ماه جاری: <span id="total_income" style="color: #4caf50;">{{ total_income|three_digits_currency }}</span></h3>
+                <a href="#" class="btn"><i class="fas fa-download"></i> دریافت گزارش</a>
+            </div>
+
+            <div style="margin-top: 20px; height: 300px; background: #f9f9f9; display: flex; justify-content: center; align-items: center;">
+                <!-- اینجا نمودار درآمد قرار می‌گیرد -->
+                <p style="color: #777;">نمودار درآمدها اینجا نمایش داده می‌شود</p>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <h3>تراکنش‌های اخیر</h3>
+                <table id="booking-table">
+                    <thead>
+                        <tr>
+                            <th>تاریخ</th>
+                            <th>کد رزرو</th>
+                            <th>مهمان</th>
+                            <th>مبلغ</th>
+                            <th>وضعیت پرداخت</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in bookings %}
+                            <tr>
+                                <td>{{ booking.created_at|to_jalali }}</td>
+                                <td>#{{ booking.id }}</td>
+                                <td>{{ booking.user.first_name }}</td>
+                                <td>{{ booking.total_price|three_digits_currency }} </td>
+                                <td>
+                                    {% if booking.status == 'confirmed' %}
+                                        <span style="color: #4caf50;">پرداخت شده</span>
+                                    {% else %}
+                                        <span style="color: #ff9800;">در انتظار پرداخت</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="5" style="text-align: center;">تراکنشی وجود ندارد.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<script>
+        document.getElementById('month-selector').addEventListener('change', function() {
+            let period = this.value;
+
+            // ارسال درخواست ایجکس برای دریافت داده‌های جدید
+            fetch(`/daramad/ajax/?period=${period}`)
+                .then(response => response.json())
+                .then(data => {
+                    // به‌روز کردن مقدار درآمد
+                    document.getElementById('total_income').innerText = `${data.total_income} تومان`;
+
+                    // به‌روزرسانی جدول تراکنش‌ها
+                    const bookingTable = document.getElementById('booking-table').getElementsByTagName('tbody')[0];
+                    bookingTable.innerHTML = '';  // پاک کردن ردیف‌های قبلی
+
+                    // اضافه کردن ردیف‌های جدید به جدول
+                    data.bookings.forEach(booking => {
+                        const row = bookingTable.insertRow();
+                        row.innerHTML = `
+                            <td>${booking.created}</td>
+                            <td>#${booking.code}</td>
+                            <td>${booking.guest_name}</td>
+                            <td>${booking.total_price} تومان</td>
+                            <td>${booking.status}</td>
+                        `;
+                    });
+                });
+        });
+    </script>
+{% endblock %}

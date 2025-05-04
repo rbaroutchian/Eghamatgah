@@ -6,7 +6,11 @@ from booking.models import Booking
 
 # Create your views here.
 def home(request):
-    return render(request, 'base2.html')
+    eghamat_list = Eghamatgah.objects.all()
+    context = {
+        'eghamat_list': eghamat_list
+    }
+    return render(request, 'home/home2.html', context)
 
 
 class EghamatgahSearchView(ListView):

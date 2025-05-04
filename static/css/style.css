@@ -909,6 +909,7 @@ input[type="date"] {
 }
 
         .articles-container {
+          margin-top: 8rem;
             padding: 2rem 9%;
         }
 
@@ -1148,4 +1149,9 @@ input[type="date"] {
 
         .contact-form-wrapper {
     margin-top: 10rem;
+}
+        .auth-container {
+    max-width: 400px;
+    margin: 100px auto 0; /* فاصله از بالا */
+    padding: 20px;
 }

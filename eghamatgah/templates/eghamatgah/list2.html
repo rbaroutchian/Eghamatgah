@@ -1,47 +1,42 @@
 {% extends 'base2.html' %}
 {% load static %}
+{% load poll_extras %}
 {% block page_title %}
 لیست اقامتگاه ها
 {% endblock %}
 {% block page_content %}
 <!-- packages section starts  -->
 
-<section class="packages" id="packages" >
+<section class="packages" id="packages">
 
-    <h1 class="heading" >
-        <span>p</span>
-        <span>a</span>
-        <span>c</span>
-        <span>k</span>
-        <span>a</span>
-        <span>g</span>
-        <span>e</span>
-        <span>s</span>
+    <h1 class="heading">
+        <span>ا</span><span>ق</span><span>ا</span><span>م</span><span>ت</span><span>گ</span><span>ا</span><span>ه</span><span>‌</span><span>ه</span><span>ا</span>
     </h1>
 
     <div class="box-container">
         {% for eghamat in eghamat_list %}
-        	<div class="box">
-            <img src="{{ eghamat.image.url }}" alt="">
-            <div class="content">
-                <h3> <i class="fas fa-map-marker-alt"></i> {{ eghamat.title }} </h3>
-                <p>{{ eghamat.description}}</p>
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
+            <div class="box">
+                <img src="{{ eghamat.image.url }}" alt="{{ eghamat.title }}">
+
+                <div class="content">
+                    <h3><i class="fas fa-map-marker-alt"></i> {{ eghamat.title }}</h3>
+                    <p>{{ eghamat.description }}</p>
+
+                    <div class="actions">
+                        <form method="post" action="{% url 'add_favorite' %}" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="eghamat_id" value="{{ eghamat.id }}">
+                            <button type="submit" class="favorite-btn">❤️ افزودن به علاقه‌مندی‌ها</button>
+                        </form>
+                        <a href="{% url 'eghamat_detail' pk=eghamat.id %}" class="btn">جزئیات و رزرو</a>
+                    </div>
                 </div>
-                <div class="price"> {{eghamat.gheymat_har_shab}}</span> </div>
-                <a href="{% url 'eghamat_detail' pk=eghamat.id %}" class="btn">جزئیاتو ببین و همین الان رزرو کن</a>
+
+                <div class="price">
+                    {{ eghamat.gheymat_har_shab|three_digits_currency }} <span>تومان</span>
+                </div>
             </div>
-        </div>
         {% endfor %}
-
-
-
-
     </div>
 
 </section>

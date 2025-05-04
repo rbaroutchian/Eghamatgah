@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Eghamatgah, EghamatComment, Eghamatgah_Category, AvailableDate
+from .models import Eghamatgah, EghamatComment, Eghamatgah_Category, AvailableDate, Favorite
 from . import models
 
 
@@ -19,4 +19,5 @@ admin.site.register(models.Eghamatgah, admin_Eghamatgah_list)
 admin.site.register(EghamatComment)
 admin.site.register(Eghamatgah_Category)
 admin.site.register(AvailableDate)
+admin.site.register(Favorite)
 

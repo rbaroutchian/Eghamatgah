@@ -121,3 +121,15 @@ class EghamatComment(models.Model):
         verbose_name = 'نظر اقامتگاه'
         verbose_name_plural = 'نظرات اقامتگاه'
 
+
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    eghamat = models.ForeignKey(Eghamatgah, on_delete=models.CASCADE)
+    added_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'eghamat')  # هر کاربر می‌تواند یک اقامتگاه را فقط یک بار به علاقمندی‌های خود اضافه کند
+        verbose_name = 'علاقمندی'
+        verbose_name_plural = 'علاقمندی ها'
+    def __str__(self):
+        return f"{self.user.username} - {self.eghamat.title}"

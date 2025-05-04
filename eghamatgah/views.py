@@ -1,12 +1,13 @@
 from datetime import datetime, timedelta
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.core.serializers.json import DjangoJSONEncoder
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 from django_extensions.db.fields import json
 
 from booking.models import Booking
-from .models import Eghamatgah, EghamatComment, UnavailableDate, AvailableDate
+from .models import Eghamatgah, EghamatComment, UnavailableDate, AvailableDate, Favorite
 from .forms import EghamatCommentForm
 from django.http import JsonResponse
 from booking.forms import BookingForm
@@ -24,6 +25,22 @@ class EghamatList(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(EghamatList, self).get_context_data(*args, **kwargs)
         return context
+
+def add_to_fav(request):
+    if request.method == 'POST' and request.user.is_authenticated:
+        eghamat_id = request.POST.get('eghamat_id')
+        eghamat = get_object_or_404(Eghamatgah, id=eghamat_id)
+        Favorite.objects.get_or_create(user=request.user, eghamat=eghamat)
+    return redirect('my_favorites')
+
+
+def fav_list(request):
+    faves = Favorite.objects.filter(user=request.user)
+    context = {
+        'faves':faves
+    }
+    return render(request, 'eghamatgah/favorites_list.html', context)
+
 
 class EghamatDetail(DetailView):
     model = Eghamatgah

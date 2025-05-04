@@ -1,5 +1,6 @@
 {% extends 'base2.html' %}
 {% load static %}
+{% load poll_extras %}
 {% block page_title %}
 
 {% endblock page_title%}
@@ -40,52 +41,7 @@
 
 <!-- home section ends -->
 
-<!-- book section starts  -->
 
-<section class="book" id="book">
-
-    <h1 class="heading">
-        <span>b</span>
-        <span>o</span>
-        <span>o</span>
-        <span>k</span>
-        <span class="space"></span>
-        <span>n</span>
-        <span>o</span>
-        <span>w</span>
-    </h1>
-
-    <div class="row">
-
-        <div class="image">
-            <img src="images/book-img.svg" alt="">
-        </div>
-
-        <form action="">
-            <div class="inputBox">
-                <h3>کجا میری؟</h3>
-                <input type="text" placeholder="نام شما">
-            </div>
-            <div class="inputBox">
-                <h3>چند نفرید؟</h3>
-                <input type="number" placeholder="تعداد افراد">
-            </div>
-            <div class="inputBox">
-                <h3>تاریخ ورود</h3>
-                <input type="date">
-            </div>
-            <div class="inputBox">
-                <h3>تاریخ خروج</h3>
-                <input type="date">
-            </div>
-            <input type="submit" class="btn" value="رزرو کردن">
-        </form>
-
-    </div>
-
-</section>
-
-<!-- book section ends -->
 
 <!-- packages section starts  -->
 
@@ -103,111 +59,19 @@
     </h1>
 
     <div class="box-container">
+        {% for eghamat in eghamat_list %}
 
         <div class="box">
-            <img src="images/p-1.jpg" alt="">
+            <img src="{{ eghamat.image.url}}" alt="">
             <div class="content">
-                <h3> <i class="fas fa-map-marker-alt"></i> بمبئی </h3>
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است </p>
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
-                </div>
-                <div class="price"> $90.00 <span>$120.00</span> </div>
+                <h3> <i class="fas fa-map-marker-alt"></i>{{eghamat.title }} </h3>
+                <p>{{ eghamat.description}}</p>
+                <div class="price">{{eghamat.gheymat_har_shab|three_digits_currency}} </div>
                 <a href="#" class="btn">الان رزرو کن</a>
             </div>
         </div>
 
-        <div class="box">
-            <img src="images/p-2.jpg" alt="">
-            <div class="content">
-                <h3> <i class="fas fa-map-marker-alt"></i> هاوایی </h3>
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است </p>
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
-                </div>
-                <div class="price"> $90.00 <span>$120.00</span> </div>
-                <a href="#" class="btn">الان رزرو کن</a>
-            </div>
-        </div>
-
-        <div class="box">
-            <img src="images/p-3.jpg" alt="">
-            <div class="content">
-                <h3> <i class="fas fa-map-marker-alt"></i> سیدنی </h3>
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است </p>
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
-                </div>
-                <div class="price"> $90.00 <span>$120.00</span> </div>
-                <a href="#" class="btn">الان رزرو کن</a>
-            </div>
-        </div>
-
-        <div class="box">
-            <img src="images/p-4.jpg" alt="">
-            <div class="content">
-                <h3> <i class="fas fa-map-marker-alt"></i> پاریس </h3>
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است </p>
-
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
-                </div>
-                <div class="price"> $90.00 <span>$120.00</span> </div>
-                <a href="#" class="btn">الان رزرو کن</a>
-            </div>
-        </div>
-
-        <div class="box">
-            <img src="images/p-5.jpg" alt="">
-            <div class="content">
-                <h3> <i class="fas fa-map-marker-alt"></i> توکیو </h3>
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است </p>
-
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
-                </div>
-                <div class="price"> $90.00 <span>$120.00</span> </div>
-                <a href="#" class="btn">الان رزرو کن</a>
-            </div>
-        </div>
-
-        <div class="box">
-            <img src="images/p-6.jpg" alt="">
-            <div class="content">
-                <h3> <i class="fas fa-map-marker-alt"></i> مصر </h3>
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است </p>
-
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
-                </div>
-                <div class="price"> $90.00 <span>$120.00</span> </div>
-                <a href="#" class="btn">الان رزرو کن</a>
-            </div>
-        </div>
+       {% endfor %}
 
     </div>
 
@@ -446,59 +310,7 @@
 
 <!-- review section ends -->
 
-<!-- contact section starts  -->
-
-<section class="contact" id="contact">
-
-    <h1 class="heading">
-        <span>c</span>
-        <span>o</span>
-        <span>n</span>
-        <span>t</span>
-        <span>a</span>
-        <span>c</span>
-        <span>t</span>
-    </h1>
-
-    <div class="row">
-
-        <div class="image">
-            <img src="images/contact-img.svg" alt="">
-        </div>
-
-        <form action="">
-            <div class="inputBox">
-                <input type="text" placeholder="اسم">
-                <input type="email" placeholder="ایمیل">
-            </div>
-            <div class="inputBox">
-                <input type="number" placeholder="شماره">
-                <input type="text" placeholder="پیغام">
-            </div>
-            <textarea placeholder="متن پیام" name="" id="" cols="30" rows="10"></textarea>
-            <input type="submit" class="btn" value="ارسال پیام">
-        </form>
-
-    </div>
-
-</section>
-
-<!-- contact section ends -->
 
 <!-- brand section  -->
-<section class="brand-container">
-
-    <div class="swiper-container brand-slider">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="images/1.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="images/2.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="images/3.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="images/4.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="images/5.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="images/6.jpg" alt=""></div>
-        </div>
-    </div>
-
-</section>
 
 {% endblock page_content%}

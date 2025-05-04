@@ -58,7 +58,7 @@ class Register(View):
         context = {
             'register_form': register_form
         }
-        return render(request, 'user/login_page.html', context)
+        return render(request, 'user/register_page.html', context)
 
     def post(self, request):
         register_form = RegisterForm(request.POST)
@@ -83,14 +83,14 @@ class Register(View):
                     )
                 new_user.set_password(password)
                 new_user.save()
-                send_verification_sms_async.delay(user_number, verification_code)
+                # send_verification_sms_async.delay(user_number, verification_code)
 
-                return redirect(reverse('verify_code_page'))
+                # return redirect(reverse('verify_code_page'))
 
         context = {
             'register_form': register_form
         }
-        return render(request, 'user/login_page.html', context)
+        return render(request, 'user/profile.html', context)
 
 
 class VerifyCodeView(View):

@@ -1,14 +1,10 @@
 {% extends 'base2.html' %}
 {% load static %}
 {% load poll_extras %}
-
 {% block page_title %}
-    اقامتگاه های شهر {{ eghamatgahs.shahr }}
+لیست علاقمندی ها
 {% endblock %}
-
 {% block page_content %}
-<!-- Properties List -->
-
 <section class="properties-list">
 
     <div class="container">
@@ -17,26 +13,26 @@
             </div>
 
         <div class="row g-4">
-            {% for search in eghamatgahs %}
+            {% for fav in faves %}
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm border-0">
-                        {% if search.image %}
-                            <img src="{{ search.image.url }}" class="card-img-top custom-img"  alt="ویلای شمال">
+                        {% if fav.eghamat.image.url %}
+                            <img src="{{ fav.eghamat.image.url }}" class="card-img-top custom-img"  alt="ویلای شمال">
                         {% else %}
                             <img src="{% static 'nopic.jpg' %}" class="card-img-top custom-img" alt="ویلای شمال">
                         {% endif %}
 
                         <div class="card-body">
-                            <h5 class="card-title">{{ search.title }}</h5>
-                            <p class="card-text text-muted mb-2">{{ search.shahr }}</p>
+                            <h5 class="card-title">{{ fav.eghamat.title }}</h5>
+                            <p class="card-text text-muted mb-2">{{ fav.eghamat.shahr }}</p>
                             <ul class="list-unstyled mb-3">
-                                <li><i class="fas fa-bed me-1 text-primary"></i> ظرفیت: {{ search.zarfiat }} نفر</li>
-                                <li><i class="fas fa-bath me-1 text-primary"></i> {{search.tedad_otagh}} خواب</li>
-                                <li><i class="fas fa-ruler-combined me-1 text-primary"></i> {{search.metrazh}} متر</li>
+                                <li><i class="fas fa-bed me-1 text-primary"></i> ظرفیت: {{ fav.eghamat.zarfiat }} نفر</li>
+                                <li><i class="fas fa-bath me-1 text-primary"></i> {{fav.eghamat.tedad_otagh}} خواب</li>
+                                <li><i class="fas fa-ruler-combined me-1 text-primary"></i> {{fav.eghamat.metrazh}} متر</li>
                             </ul>
                             <div class="d-flex justify-content-between align-items-center">
-                                <span class="text-success fw-bold">شبانه: {{ search.gheymat_har_shab|three_digits_currency }}</span>
-                                <a href="{% url 'eghamat_detail' pk=search.id %}" class="btn btn-outline-primary btn-sm">جزئیات بیشتر و رزرو</a>
+                                <span class="text-success fw-bold">شبانه: {{ fav.eghamat.gheymat_har_shab|three_digits_currency }}</span>
+                                <a href="{% url 'eghamat_detail' pk=fav.eghamat.id %}" class="btn btn-outline-primary btn-sm">جزئیات بیشتر و رزرو</a>
                             </div>
                         </div>
                     </div>
@@ -74,4 +70,5 @@
         {% endif %}
     </div>
 </section>
-{% endblock %}
+
+{% endblock page_content%}

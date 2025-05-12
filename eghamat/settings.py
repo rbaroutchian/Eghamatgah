@@ -104,7 +104,7 @@ DATABASES = {
         'NAME': 'eghamatgah',
         'USER': 'postgres',
         'PASSWORD': 'ramin863',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '5432',
         'OPTIONS': {
             'client_encoding': 'UTF8',

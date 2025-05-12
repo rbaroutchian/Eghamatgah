@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - db  # ❗️ Django بعد از دیتابیس اجرا میشه
+
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: eghamatgah
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ramin863
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

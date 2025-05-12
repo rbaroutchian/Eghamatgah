@@ -191,3 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
     $(document).on('click', '.cancel-reply', function () {
         $(this).closest('.reply-form').slideUp();
     });
+
+
+
+

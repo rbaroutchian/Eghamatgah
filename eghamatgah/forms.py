@@ -5,7 +5,9 @@ from .models import Eghamatgah, EghamatComment, Seller
 class EghamatForm(forms.ModelForm):
     class Meta:
         model = Eghamatgah
-        fields = '__all__'
+        fields = ['title', 'seller','eghamat_type', 'Ecategory', 'ostan', 'shahr','address', 'description',
+                  'tedad_otagh', 'zarfiat', 'time_voroud', 'time_khorouj', 'gheymat_har_shab','parking', 'pool',
+                  'wifi','tv', 'kitchen','image']
 
     def clean_description(self):
         description = self.cleaned_data['description']
@@ -33,3 +35,13 @@ class EghamatSearchForm(forms.Form):
     check_in = forms.DateField(label="تاریخ ورود", widget=forms.DateInput(attrs={'type': 'date'}), required=False)
     check_out = forms.DateField(label="تاریخ خروج", widget=forms.DateInput(attrs={'type': 'date'}), required=False)
     persons = forms.IntegerField(label="تعداد نفرات", min_value=1, required=False)
+
+
+class EghamatDetailForm(forms.ModelForm):
+    class Meta:
+        model = Eghamatgah
+        fields = ['title', 'ostan', 'shahr','address', 'description',
+                  'tedad_otagh', 'zarfiat', 'time_voroud', 'time_khorouj', 'gheymat_har_shab','parking', 'pool',
+                  'wifi','tv', 'kitchen','image']
+
+

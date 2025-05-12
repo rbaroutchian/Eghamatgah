@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>
+      {% block title %}
+          داشبورد
+      {% endblock %}
+  </title>
+  <link rel="stylesheet" href="{% static 'admin_panel/css/customer.css' %}">
+</head>
+<body>
+  <div class="dashboard-container">
+  {% include 'customer/customer_sidebar/customer_sidebar.html' %}
+    <main class="main-content">
+      {% block content %}
+
+
+      {% endblock %}
+    </main>
+  </div>
+</body>
+</html>

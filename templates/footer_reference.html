@@ -3,14 +3,112 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fa.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jdate-flatpickr@1.0.7/dist/jdate-flatpickr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr-jalali/dist/flatpickr-jalali.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jalaali-js/dist/jalaali.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/md.bootstrap.persiandatetimepicker@3.0.0/dist/mds.bs.datetimepicker.js"></script>
 <script src="{% static 'js/custom.js' %}"></script>
 <script src="{% static 'js/calendar.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr-jalali/dist/flatpickr-jalali.min.js"></script>
+
+<!-- لحظه + مبدّل جلالی برای تبدیل تاریخ -->
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment-jalaali@0.9.3/build/moment-jalaali.js"></script>
 <!-- داده‌های تاریخ‌ها از ویو -->
-{{ available_dates|json_script:"availableDates" }}
-{{ reserved_dates|json_script:"reservedDates" }}
+{#{{ available_dates|json_script:"availableDates" }}#}
+{#{{ reserved_dates|json_script:"reservedDates" }}#}
+
+
+
+<script>
+/* ---------- داده‌هایی که ویو می‌فرستد ---------- */
+const availableDates = {{ available_dates|safe }};     // لیست «۱۴۰۴-۰۲-۲۳» ...
+const pricePerNight  = {{ eghamat.gheymat_har_shab }};
+const capacity       = {{ eghamat.zarfiat }};
+const extraPrice     = {{ eghamat.zarfiat_extra }};
+
+/* ---------- کمک: جلالی ← میلادی ---------- */
+function jalaliToGregorian(jDate) {
+  // '1404-02-23'  →  '2025-05-13'
+  return moment.from(jDate, 'fa', 'YYYY-MM-DD').format('YYYY-MM-DD');
+}
+
+/* ---------- تنظیم تقویم‌ها ---------- */
+flatpickr.l10ns.fa.firstDayOfWeek = 6;
+
+flatpickr('#id_check_in', {
+  calendarType: 'jalali',
+  locale: 'fa',
+  dateFormat: 'Y-m-d',
+  enable: availableDates,
+  onChange: ([sel]) => {
+    // پس از انتخاب ورود، خروج را فقط بعدش اجازه بده
+    const next = availableDates.filter(d => moment.from(d, 'fa').isAfter(moment.from(sel, 'fa')));
+    flatpickr('#id_check_out', {
+      calendarType: 'jalali',
+      locale: 'fa',
+      dateFormat: 'Y-m-d',
+      enable: next,
+      onChange: calcPrice
+    });
+    calcPrice();
+  }
+});
+
+flatpickr('#id_check_out', {
+  calendarType: 'jalali',
+  locale: 'fa',
+  dateFormat: 'Y-m-d',
+  enable: availableDates,
+  onChange: calcPrice
+});
+
+/* ---------- محاسبه قیمت لحظه‌ای ---------- */
+document.getElementById('id_persons').addEventListener('input', calcPrice);
+
+function calcPrice() {
+  const inFa  = document.getElementById('id_check_in').value;
+  const outFa = document.getElementById('id_check_out').value;
+  const guests = parseInt(document.getElementById('id_persons').value) || 0;
+
+  if (!inFa || !outFa || guests === 0) {
+    document.getElementById('total-price').textContent = '-';
+    return;
+  }
+
+  const inGr  = moment(jalaliToGregorian(inFa));
+  const outGr = moment(jalaliToGregorian(outFa));
+  const nights = outGr.diff(inGr, 'days');
+
+  if (nights <= 0) {
+    document.getElementById('total-price').textContent = '-';
+    return;
+  }
+
+  const extra = Math.max(0, guests - capacity) * extraPrice;
+  const total = (pricePerNight + extra) * nights;
+  document.getElementById('total-price').textContent = total.toLocaleString();
+}
+
+/* ---------- تبدیل قبل از ارسال فرم ---------- */
+document.getElementById('booking-form').addEventListener('submit', function (e) {
+  const inFa  = document.getElementById('id_check_in').value;
+  const outFa = document.getElementById('id_check_out').value;
+  if (!inFa || !outFa) {
+    e.preventDefault();
+    alert('لطفاً تاریخ ورود و خروج را انتخاب کنید.');
+    return;
+  }
+
+  // مقدار همان فیلدها را به میلادی برگردان
+  document.getElementById('id_check_in').value  = jalaliToGregorian(inFa);
+  document.getElementById('id_check_out').value = jalaliToGregorian(outFa);
+});
+</script>
 
 
 

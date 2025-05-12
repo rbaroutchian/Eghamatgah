@@ -1,0 +1,44 @@
+/* static/css/dashboard.css */
+.dashboard-container {
+  display: flex;
+  font-family: "B Nazanin";
+}
+
+.sidebar {
+  width: 200px;
+  background: #f0f0f0;
+  padding: 1rem;
+  height: 100vh;
+}
+
+.sidebar h2 {
+  font-size: 1.2rem;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 1rem 0;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  background: #fff;
+}
+
+.dashboard-widgets {
+  display: flex;
+  gap: 1rem;
+}
+
+.widget {
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+  flex: 1;
+  box-shadow: 0 0 5px #ddd;
+}

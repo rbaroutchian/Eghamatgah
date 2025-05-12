@@ -12,6 +12,7 @@ from .forms import EghamatCommentForm
 from django.http import JsonResponse
 from booking.forms import BookingForm
 from datetime import timedelta
+import jdatetime
 
 
 # Create your views here.
@@ -67,8 +68,13 @@ class EghamatDetail(DetailView):
             diff= (b.check_out - b.check_in).days
             reserved_days += [b.check_in + timedelta(days=i) for i in range(diff+1)]
 
-        final_available = [d.isoformat() for d in available_days if d not in reserved_days]
-        final_reserved = [d.isoformat() for d in reserved_days]
+        def to_jalali_string(date):
+            return jdatetime.date.fromgregorian(date=date).isoformat()
+
+        final_available = [to_jalali_string(d) for d in available_days if d not in reserved_days]
+        final_reserved = [to_jalali_string(d) for d in reserved_days]
+        # final_available = [d.isoformat() for d in available_days if d not in reserved_days]
+        # final_reserved = [d.isoformat() for d in reserved_days]
 
         context.update({
             'comments': EghamatComment.objects.filter(eghamat=eghamat, parent=None)

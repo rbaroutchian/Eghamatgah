@@ -46,39 +46,47 @@
       رزرو اقامتگاه
     </div>
     <div class="card-body">
-<form id="booking-form" method="post">
+<form id="booking-form" method="post" class="card p-4 shadow-sm mt-4">
   {% csrf_token %}
-  <div style="max-width:400px;margin:auto;">
-    <label for="datePicker">انتخاب تاریخ ورود و خروج:</label>
-    <input
-      type="text"
-      id="datePicker"
-      name="date_range"
-      placeholder="مثال: 2025-05-10 to 2025-05-15"
-      readonly
-      style="width:100%;padding:8px;margin-top:4px;"
-    />
 
-    <label for="persons" style="margin-top:12px;display:block;">تعداد نفرات:</label>
-    <input
-      type="number"
-      id="persons"
-      name="persons"
-      min="1"
-      required
-      style="width:100%;padding:8px;margin-top:4px;"
-    />
+  <h5 class="mb-3">رزرو اقامتگاه</h5>
 
-    <button
-      type="submit"
-      style="width:100%;padding:10px;margin-top:16px;background:#28a745;color:#fff;border:none;border-radius:4px;"
-    >
-      رزرو
-    </button>
-  </div>
-</form>
+  <div class="row g-3 mb-3">
+    <div class="col-md">
+      <label for="id_check_in" class="form-label">تاریخ ورود</label>
+      {{ booking_form.check_in.as_widget(attrs={
+          "id": "id_check_in",
+          "class": "form-control",
+          "placeholder": "انتخاب کنید..."
+      }) }}
+    </div>
+    <div class="col-md">
+      <label for="id_check_out" class="form-label">تاریخ خروج</label>
+      {{ booking_form.check_out.as_widget(attrs={
+          "id": "id_check_out",
+          "class": "form-control",
+          "placeholder": "انتخاب کنید..."
+      }) }}
     </div>
   </div>
+
+  <div class="mb-3">
+    <label for="id_persons" class="form-label">تعداد نفرات</label>
+    {{ booking_form.persons.as_widget(attrs={
+        "id": "id_persons",
+        "class": "form-control",
+        "min": 1
+    }) }}
+  </div>
+
+  <div class="mb-3">
+    <strong>قیمت کل:</strong>
+    <span id="total-price" class="text-success fw-bold">-</span>
+    تومان
+  </div>
+
+  <button type="submit" class="btn btn-success w-100">ثبت رزرو</button>
+</form>
 
 </div>
 

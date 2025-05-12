@@ -76,35 +76,51 @@
                     {{ form.gheymat_har_shab }}
                 </div>
 
-{#                <div class="form-group">#}
-{#                    <label>قوانین</label>#}
-{#                    {{ form.rules }}#}
-{#                </div>#}
+                <div class="form-group">
+                    <label>تایم ورود</label>
+                    {{ form.time_voroud }}
+                </div>
+                <div class="form-group">
+                    <label>تایم خروج</label>
+                    {{ form.time_khorouj }}
+                </div>
 
-{#                <div class="form-group">#}
-{#                    <h3>امکانات</h3>#}
-{#                    <div class="amenities-checkboxes">#}
-{#                        {{ form.amenities }}#}
-{#                    </div>#}
-{#                </div>#}
+                <div class="form-group">
+                    <h3>امکانات</h3>
+                    <div class="amenities-checkboxes">
+                        {{ form.pool }}استخر
+                    </div>
+                    <div class="amenities-checkboxes">
+                        {{ form.kitchen }}آشپرخانه
+                    </div>
+                    <div class="amenities-checkboxes">
+                        {{ form.tv }}تلویزیون
+                    </div>
+                    <div class="amenities-checkboxes">
+                        {{ form.wifi }}وای فای
+                    </div>
+                    <div class="amenities-checkboxes">
+                        {{ form.parking }}پارکینگ
+                    </div>
+                </div>
             </div>
         </div>
 
         <div style="margin-top: 30px;">
             <h3>تصاویر اقامتگاه</h3>
             <div class="image-upload-container">
-                {% for image in object.images.all %}
+            {% if object.image %}
                 <div class="image-preview">
-                    <img src="{{ image.image.url }}" alt="{{ object.title }}">
+                     <img src="{{ object.image.url }}" alt="{{ object.title }}">
                     <a href="#" class="delete-image">
                         <i class="fas fa-trash"></i>
                     </a>
                 </div>
-                {% endfor %}
+                {% endif %}
             </div>
 
             <div class="form-group" style="margin-top: 20px;">
-                <label>افزودن تصاویر جدید</label>
+                <label>افزودن تصویر جدید</label>
                 <input type="file" name="images" multiple accept="image/*">
             </div>
         </div>

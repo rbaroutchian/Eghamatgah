@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, UpdateView, CreateView, DeleteView, TemplateView, View
 from eghamatgah.models import Eghamatgah, Eghamatgah_Category, EghamatComment
-from eghamatgah.forms import EghamatForm, EghamatCommentFormAdmin
+from eghamatgah.forms import EghamatForm, EghamatCommentFormAdmin, EghamatDetailForm
 from django.urls import reverse_lazy
 
 from seller_account.forms import SellerProfileForm
@@ -137,7 +137,7 @@ class Eghamatgah_Category_admin(ListView):
 class Eghamatgah_Detail(UpdateView):
     model = Eghamatgah
     template_name = 'eghamatgah/detail_eghamat_admin.html'
-    form_class = EghamatForm
+    form_class = EghamatDetailForm
     success_url = reverse_lazy('eghamat_list_dashboard')
 
     def form_invalid(self, form):

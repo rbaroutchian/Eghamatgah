@@ -25,28 +25,99 @@
 
     <a href="#" class="logo"><span>رزرو</span> اقامتگاه</a>
 
+{#    <nav class="navbar">#}
+{#        <a href="{% url 'home' %}">خانه</a>#}
+{#        <a href="{% url 'eghamat_list' %}">پکیج ها</a>#}
+{#        <a href="{% url 'article_list' %}">مقالات</a>#}
+{#        <a href="#gallery">گالری عکس</a>#}
+{#        <a href="{% url 'contact_page' %}">ارتباط با ما</a>#}
+{#        <a href="{% url 'my_favorites' %}">لیست علاقمندی ها</a>#}
+{##}
+{#        {% if request.user.is_authenticated %}#}
+{#            <a href="{% url 'profile' %}">پروفایل من</a>#}
+{#            {% if request.user.is_authenticated and request.user.seller and request.user.seller.is_active %}#}
+{##}
+{#                <a href="{% url 'admin_home' %}">داشبورد میزبان </a>#}
+{#            {% elif request.user.is_authenticated and not request.user.seller and request.user.is_active %}#}
+{#                <a href="{% url 'customer_admin_home' %}">داشبورد مشتریان </a>#}
+{#            {% endif %}#}
+{#                <a href="{% url 'logout_page' %}">خروج</a>#}
+{#        {% elif not request.user.is_authenticated %}#}
+{#            <a href="{% url 'login_page' %}">ورود</a>#}
+{#            <a href="{% url 'register_page' %}">عضویت</a>#}
+{#        {% endif %}#}
+{##}
+{#    </nav>#}
+
     <nav class="navbar">
-        <a href="{% url 'home' %}">خانه</a>
-        <a href="{% url 'eghamat_list' %}">پکیج ها</a>
-        <a href="{% url 'article_list' %}">مقالات</a>
-        <a href="#gallery">گالری عکس</a>
-        <a href="{% url 'contact_page' %}">ارتباط با ما</a>
-        <a href="{% url 'my_favorites' %}">لیست علاقمندی ها</a>
-
-        {% if request.user.is_authenticated %}
-            <a href="{% url 'profile' %}">پروفایل من</a>
-            {% if request.user.is_authenticated and request.user.seller and request.user.seller.is_active %}
-
-                <a href="{% url 'admin_home' %}">داشبورد میزبان </a>
+        <div class="nav-links">
+            <a href="{% url 'home' %}" class="nav-link active">
+                <i class="fas fa-home"></i>
+                <span>خانه</span>
+            </a>
+            <a href="{% url 'eghamat_list' %}" class="nav-link">
+                <i class="fas fa-suitcase"></i>
+                <span>پکیج ها</span>
+            </a>
+            <a href="{% url 'article_list' %}" class="nav-link">
+                <i class="fas fa-newspaper"></i>
+                <span>مقالات</span>
+            </a>
+            <a href="#gallery" class="nav-link">
+                <i class="fas fa-images"></i>
+                <span>گالری عکس</span>
+            </a>
+            <a href="{% url 'contact_page' %}" class="nav-link">
+                <i class="fas fa-envelope"></i>
+                <span>ارتباط با ما</span>
+            </a>
+            <a href="{% url 'my_favorites' %}" class="nav-link">
+                <i class="fas fa-heart"></i>
+                <span>علاقمندی ها</span>
+            </a>
+        </div>
+        
+        <div class="user-section">
+            {% if request.user.is_authenticated %}
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        <i class="fas fa-user-circle"></i>
+                        <span>حساب کاربری</span>
+                        <i class="fas fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'profile' %}">
+                            <i class="fas fa-user"></i>
+                            پروفایل من
+                        </a>
+                        {% if request.user.seller and request.user.seller.is_active %}
+                            <a href="{% url 'admin_home' %}">
+                                <i class="fas fa-tachometer-alt"></i>
+                                داشبورد میزبان
+                            </a>
+                        {% elif not request.user.seller and request.user.is_active %}
+                            <a href="{% url 'customer_admin_home' %}">
+                                <i class="fas fa-tachometer-alt"></i>
+                                داشبورد مشتریان
+                            </a>
+                        {% endif %}
+                        <a href="{% url 'logout_page' %}">
+                            <i class="fas fa-sign-out-alt"></i>
+                            خروج
+                        </a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{% url 'login_page' %}" class="auth-link">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>ورود / عضویت</span>
+                </a>
             {% endif %}
-                <a href="{% url 'logout_page' %}">خروج</a>
-        {% elif not request.user.is_authenticated %}
-            <a href="{% url 'login_page' %}">ورود</a>
-            <a href="{% url 'register_page' %}">عضویت</a>
-        {% endif %}
-
+        </div>
     </nav>
-
+    
+    
+    
     <div class="icons">
         <i class="fas fa-search" id="search-btn"></i>
         <i class="fas fa-user" id="login-btn"></i>

@@ -1,0 +1,26 @@
+{% extends 'customer/base/base_dashoard.html' %}
+
+{% block title %}
+    داشبورد مشتری
+
+{% endblock %}
+
+{% block content %}
+  <h1>سلام {{ request.user.get_full_name }} 👋</h1>
+  <p>به داشبورد خودت خوش اومدی.</p>
+
+  <div class="dashboard-widgets">
+    <div class="widget">
+      <h3>رزروهای فعال</h3>
+      <p>-- عدد --</p>
+    </div>
+    <div class="widget">
+      <h3>نظرات</h3>
+      <p>-- عدد --</p>
+    </div>
+    <div class="widget">
+      <h3>پروفایل</h3>
+      <p><a href="{% url 'user_profile' %}">ویرایش پروفایل</a></p>
+    </div>
+  </div>
+{% endblock %}

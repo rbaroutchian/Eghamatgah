@@ -52,18 +52,6 @@ class Eghamatgah(models.Model):
     tv = models.BooleanField(default=False, verbose_name='تلویزیون')
     image = models.ImageField(upload_to='media',default='', verbose_name='تصویر1')
     image2 = models.ImageField(upload_to='media',default='', verbose_name='تصویر2')
-    image3 = models.ImageField(upload_to='media',default='', verbose_name='تصویر3')
-    image4 = models.ImageField(upload_to='media',default='', verbose_name='تصویر4')
-    image5 = models.ImageField(upload_to='media',default='', verbose_name='تصویر5')
-    video = models.FileField(
-        upload_to='videos',
-        null=True,
-        blank=True,
-        validators=[FileExtensionValidator(allowed_extensions=['mp4', 'mov', 'avi'])],
-        verbose_name='ویدیو'
-    )
-    aparat_video_id = models.CharField(max_length=100, null=True, blank=True)
-
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
